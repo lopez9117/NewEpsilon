@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+
+.notificacion {
+display: inline;
+position: relative;
+}
+.notificacion:hover:after {
+font-family: "Trebuchet MS", Verdana, Arial; 
+font-size:8px; display:inline; 
+bottom: 26px;
+content: attr(title); /* este es el texto que ser� mostrado */
+left: 20%;
+position: absolute;
+z-index: 98;
+/* el formato gr�fico */
+background:#0B80BD; /* el color de fondo */
+border-radius: 5px;
+color: #FFF; /* el color del texto */
+padding: 5px 15px;
+text-align: center;
+text-shadow: 1px 1px 1px #000;
+width: 150px;
+font-size:11px;
+}
+.notificacion:hover:before {
+bottom: 20px;
+content: "";
+left: 50%;
+position: absolute;
+z-index: 99;
+/* el tri�ngulo inferior */
+border-color: rgba(255,255,255, 0.2) transparent;
+border-width: 6px 6px 0 6px;
+}
+<!--
+body {
+margin-left: 0px;
+margin-top: 0px;
+margin-right: 0px;
+margin-bottom: 0px;
+}
+#notificacion
+{
+background-image: url(../red_00000.png);
+font-size:15px;
+color: #FFF;
+background-position: center center;
+height: auto;
+}
+#notificacion:hover
+{
+font-size:20px;
+color: #FFF;
+}

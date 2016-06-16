@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+	{
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+	}
+	textarea
+	{
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+		width:98%;
+		height:50px;
+		resize:none;
+	}
+	.select
+	{font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:80%;
+	}
+	fieldset
+	{width:95%;
+	margin-left:2%;
+	}
+	#text
+	{font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:80%;
+	}
+	.text
+	{font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:80%;
+	}
+	#textsmall
+	{font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:30%;
+	}
+	.textsmall
+	{font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:30%;
+	}
+	.encabezado
+	{background-color:#CCCCCC;
+	}
+	
+	.asterisk {
+	color: #F00;
+}
+#divheader
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	width:95%;
+	margin-left:2%;
+	margin-bottom:1%;
+}

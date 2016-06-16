@@ -1,0 +1,140 @@
+<?php
+ini_set('max_execution_time', 0);
+include("../../dbconexion/conexion.php");
+$cn = Conectarse();
+
+//variables
+$desde = trim(base64_decode($_GET['FchDesde'])); 
+$hasta = trim(base64_decode($_GET['FchHasta']));
+ $idSede = trim(base64_decode($_GET['sede'])); 
+ $descSede = trim(base64_decode($_GET['descSede']));
+
+//convertir el documento en excel
+header("Expires: 0");
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+header("content-disposition: attachment;filename=OportunidadAsignacionCitas".$descSede.'-'.desde.'-'.$hasta.".xls");
+
+//obtener totalidad de estudios
+$SqlAgenda = mysql_query("SELECT id_informe, id_paciente, idestudio, id_prioridad, idservicio,
+id_tecnica, idtipo_paciente, fecha_solicitud, hora_solicitud FROM r_informe_header  WHERE fecha_solicitud
+BETWEEN '$desde' AND '$hasta' AND idsede = '$idSede' ORDER BY idservicio, fecha_solicitud, hora_solicitud ASC", $cn);
+$ConAgenga = mysql_num_rows($SqlAgenda);
+
+$Sqlmuybueno = mysql_query("SELECT count(*) from  e_encuesta s 
+inner join e_resp_encuesta i on s.idencuesta = i.idencuesta
+where i.idpregunta ='16' and i.idcalificacion='2' AND  s.idsede = '32' AND  s.fecha between '2016-05-26' AND '2016-05-27'", $cn);
+
+
+
+function GetPaciente($cn, $idPaciente)
+{
+  
+$Sqlmuybueno = mysql_query("SELECT count(*) from  e_encuesta s 
+inner join e_resp_encuesta i on s.idencuesta = i.idencuesta
+where i.idpregunta ='16' and i.idcalificacion='2' AND  s.idsede = '32' AND  s.fecha between '2016-05-26' AND '2016-05-27'", $cn);
+
+$ConAgenga = mysql_query($Sqlmuybueno);
+    
+    $String = '';
+
+    $String .= '<td align="center">' . $ConAgenga. '</td> 
+                ';
+    return $String;
+}
+
+function GetEstudio($cn, $idInforme, $idPaciente){
+    $ConEstudio = mysql_query("SELECT i.idestudio, i.id_tecnica, i.idservicio, i.idtipo_paciente, e.nom_estudio, t.desc_tecnica, ser.descservicio, tp.desctipo_paciente  FROM r_informe_header i
+    INNER JOIN r_estudio e ON e.idestudio = i.idestudio
+    INNER JOIN r_tecnica t ON t.id_tecnica = i.id_tecnica
+    INNER JOIN servicio ser ON ser.idservicio = i.idservicio
+    inner JOIN r_tipo_paciente tp ON tp.idtipo_paciente = i.idtipo_paciente
+    WHERE i.id_informe = '$idInforme' AND i.id_paciente = '$idPaciente'", $cn);
+    $RegEstudio = mysql_fetch_array($ConEstudio);
+    $Estudio = ucwords(strtolower($RegEstudio['nom_estudio']));
+    $Tecnica = ucwords(strtolower($RegEstudio['desc_tecnica']));
+    $Servicio = ucwords(strtolower($RegEstudio['descservicio']));
+    $TipoPaciente = ucwords(strtolower($RegEstudio['desctipo_paciente']));
+    $String = '';
+
+    $String .= '<td align="center">'. $Servicio .'</td>
+                <td align="center">'. $Estudio .'</td>
+                <td align="center">'. $Tecnica .'</td>
+                <td align="center">'. $TipoPaciente .'</td>';
+    return $String;
+}
+function GetAgendamiento($cn, $IdInforme, $estado){
+    $SqlAgendamiento = mysql_query("SELECT fecha, hora FROM r_log_informe WHERE id_informe = '$IdInforme' AND id_estadoinforme = '$estado'", $cn);
+    $contador = mysql_num_rows($SqlAgendamiento);
+    if($contador>=1) {
+        $RegAgendamiento = mysql_fetch_array($SqlAgendamiento);
+        $FechaAsignacion = $RegAgendamiento['fecha'];
+        //$HoraAsignacion = $RegAgendamiento['hora'];
+        return $FechaAsignacion;
+    }
+    else{
+        $String = 'Cancelado';
+        return $String;
+    }
+}
+function CalularOportunidad($fechaSolicitud, $fechaAsignacion){
+    $Inicio = strtotime($fechaSolicitud);
+    $Final = strtotime($fechaAsignacion);
+    $Diferencia = $Final - $Inicio;
+    $Oportunidad = round($Diferencia / 86400);
+    if($Oportunidad<0)
+    {
+        return 0;
+    }
+    else{
+        return  $Oportunidad;
+    }
+}
+
+?>
+<style type="text/css">
+    body { font-family: Arial, Helvetica, sans-serif; font-size: x-small; }
+    .table-fill { background: white; width: 100%;}
+    tr { border-top: 1px solid #C1C3D1; border-bottom-: 1px solid #C1C3D1; }
+    tr:first-child { border-top:none; }
+    tr:last-child {border-bottom:none; }
+    tr:nth-child(odd)
+    /*td { background:#EBEBEB; }
+    td { background:#FFFFFF; }*/
+    .text-center { text-align: center; background-color: #000066; }
+</style>
+<table border="1" rules="all">
+    <tr align="center">
+        <td colspan="11"><?php echo $descSede ?></td>
+    </tr>
+    <tr align="center">
+        <td width="8%">Tipo de registro</td>
+        <td width="10%">Consecutivo de registro</td>
+        <td width="10%">Tipo de identificacion de la entidad reportadora</td>
+        <td width="10%">Numero de identificacion de la entidad reportadora</td>
+        <td width="10%">Numero de usuarios que respondieron 'muy buena' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'buena' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'Regular' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'mala' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'muy mala' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'Prefiero no responder' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'Definitivamente si' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'Probablemente si' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'Definitivamente no' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron 'Probablemente no' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        <td width="10%">Numero de usuarios que respondieron '>No responde' a la pregunta: ¿Como calificaria su experincia global respecto a los servicios de salud que ha recibido a traves de la IPS</td>
+        
+    </tr>
+
+      <?php
+        
+            while($RowAgenda = mysql_fetch_array($Sqlmuybueno)){                
+                echo '<tr align="center">';
+                $idPaciente =$Sqlmuybueno;
+
+                
+                echo GetPaciente($cn, $Sqlmuybueno);               
+                echo '</tr>';
+            }
+        
+    ?>
+</table>

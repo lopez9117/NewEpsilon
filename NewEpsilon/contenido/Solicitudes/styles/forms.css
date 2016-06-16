@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+
+	.texto{width:145px;
+	font-size:12px;
+	}
+	.selectlarge{width:150px;
+	font-size:12px;
+	}
+	.selectxtralarge{width:335px;
+	font-size:12px;
+	}
+	.textolarge
+	{width:195px;
+	font-size:12px;
+	}
+	.select
+	{
+	width:200px;
+	font-size:12px;
+	}
+	.superselect
+	{width:475px;
+	font-size:12px;}
+	.supertext
+	{
+	width:470px;
+	font-size:12px;}
+	textarea
+	{width:745px;
+	height:40px;
+	resize:none;
+	font: 100% "Trebuchet MS", sans-serif;
+	}
+	.asterisk
+	{
+		font-size:15px;
+		color:#F00;
+		padding:2px;
+	}
+body{
+	font: 62.5% "Trebuchet MS", sans-serif;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	}
+	
+	/* css para formulario de registro y admisiones */
+	#textfield
+	{
+		width:120px;
+		font-size:12px;
+	}
+	#selectSmall
+	{width:125px;
+	font-size:12px;
+	}
+	.selectSmall
+	{width:125px;
+	font-size:12px;
+	}
+	#selectLarge
+	{width:250px;
+	font-size:12px;
+	
+	}
+	.textSmall
+	{
+	width:30px;
+	font-size:12px;
+	}

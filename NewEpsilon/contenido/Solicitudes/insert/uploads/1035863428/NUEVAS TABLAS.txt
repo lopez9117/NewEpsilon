@@ -1,0 +1,47 @@
+// tabla donde se registran el motivo de la cancelation
+DROP TABLE IF EXISTS `epsilon`.`r_motivocancel`;
+CREATE TABLE  `epsilon`.`r_motivocancel` (
+  `id_motivo` int(10) unsigned NOT NULL auto_increment,
+  `desc_motivo` text NOT NULL,
+  `id_estado` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`id_motivo`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+// tabla donde se registran los comentarios con su respectiva cancelacion
+
+DROP TABLE IF EXISTS `epsilon`.`r_comentmotivocancel`;
+CREATE TABLE  `epsilon`.`r_comentmotivocancel` (
+  `id_informe` int(10) unsigned NOT NULL,
+  `id_motivo` int(10) unsigned NOT NULL,
+  `idfuncionario` int(10) unsigned NOT NULL,
+  `comentario` text NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+//TABLA PARA CONSULTAR LAS ADIONALES
+
+DROP TABLE IF EXISTS `epsilon`.`r_adicional`;
+CREATE TABLE  `epsilon`.`r_adicional` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `desc_adicional` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+//TABLA PARA CONSULTAR LAS EXTREMIDADES
+
+DROP TABLE IF EXISTS `epsilon`.`r_extremidad`;
+CREATE TABLE  `epsilon`.`r_extremidad` (
+  `id_extremidad` int(11) NOT NULL,
+  `desc_extremidad` varchar(45) NOT NULL,
+  `idestado` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`id_extremidad`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+//TABLA PARA REGISTRAR LOS ADJUNTOS DEL RIS
+DROP TABLE IF EXISTS `epsilon`.`r_adjuntos`;
+CREATE TABLE  `epsilon`.`r_adjuntos` (
+  `id_adjunto` int(10) unsigned NOT NULL auto_increment,
+  `adjunto` text NOT NULL,
+  `id_informe` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`id_adjunto`)
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;

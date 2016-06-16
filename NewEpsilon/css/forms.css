@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* CSS Document */
+
+.form
+{font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+font-style:normal;
+}
+
+.select
+{font-family:Verdana, Geneva, sans-serif;
+font-size:12px;
+width:300px;
+height:20px;
+}
+
+.text
+{font-size:12px;
+font-family:Verdana, Geneva, sans-serif;
+width:295px;
+height:20px;
+}
+
+.notificacion
+{font-size:10px;
+font-family:Verdana, Geneva, sans-serif;
+}
+
+.button { 
+display:inline-block;
+      margin:0;
+      padding:5px 0;
+      border-width:0;
+      overflow:visible;
+      font:100%/1.2 Trebuchet MS, Arial, Verdana; font-size: 12px;
+      text-decoration:none;
+	  font-weight:bold; 
+	  color:#FFF;
+	  white-space:nowrap;
+	  background:#66C;
+	  width:150px;
+}
+
+.small_select
+{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	width:150px;
+}
+/* cajas de texto y listas seleccionables mas pequeñas */
