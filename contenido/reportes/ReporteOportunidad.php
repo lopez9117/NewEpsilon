@@ -12,27 +12,26 @@ $descSede = trim(base64_decode($_GET['descSede']));
 //convertir el documento en excel
 header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-header("content-disposition: attachment;filename=OportunidadAsignacionCitas".$descSede.'-'.desde.'/'.$hasta.".xls");
+header("content-disposition: attachment;filename=OportunidadAsignacionCitas".$descSede.'-'.desde.'-'.$hasta.".xls");
 
 //obtener totalidad de estudios
 $SqlAgenda = mysql_query("SELECT id_informe, id_paciente, idestudio, id_prioridad, idservicio,
 id_tecnica, idtipo_paciente, fecha_solicitud, hora_solicitud FROM r_informe_header  WHERE fecha_solicitud
 BETWEEN '$desde' AND '$hasta' AND idsede = '$idSede' ORDER BY idservicio, fecha_solicitud, hora_solicitud ASC", $cn);
 $ConAgenga = mysql_num_rows($SqlAgenda);
-$consecutivo=1;
 function GetPaciente($cn, $idPaciente)
 {
     $SqlPaciente = mysql_query("SELECT p.nom1,p.nom2, p.ape1,p.ape2, eps.eapb,i.cod_documento,p.fecha_nacimiento,s.desc_sexo FROM r_paciente p
 INNER JOIN eps eps ON eps.ideps = p.ideps
-
 INNER JOIN tipo_documento i ON  i.idtipo_documento = p.idtipo_documento
 INNER JOIN r_sexo s ON s.id_sexo =  p.id_sexo 
  WHERE p.id_paciente = '$idPaciente'" , $cn);
 
+
     $RegPaciente = mysql_fetch_array($SqlPaciente);
     $tipoderegistro = 2;
 
-    $consecutivo=$consecutivo+1;
+    
     $tipodeid = ucwords(strtolower($RegPaciente['cod_documento']));
     $apellido1 = ucwords(strtolower($RegPaciente['ape1']));
     $apellido2 = ucwords(strtolower($RegPaciente['ape2']));
@@ -44,7 +43,7 @@ INNER JOIN r_sexo s ON s.id_sexo =  p.id_sexo
     $String = '';
 
     $String .= '<td align="center">' . $tipoderegistro . '</td>
-                <td align="center">' . $consecutivo . '</td> 
+                <td align="center">' . "" . '</td> 
                 <td align="center">' . $tipodeid . '</td> 
                 <td align="center">' . $idPaciente . '</td> 
                 <td align="center">' . $fecha_nacimiento . '</td>
@@ -66,19 +65,18 @@ function GetEstudio($cn, $idInforme, $idPaciente){
     $RegEstudio = mysql_fetch_array($ConEstudio);
     $cups= ucwords(strtolower($RegEstudio['cups_iss']));
     $fechasolicitud= ucwords(strtolower($RegEstudio['fecha_solicitud']));
-    $siono="S";
-    $fechapreparacion = ucwords(strtolower($RegEstudio['fecha_preparacion']));
+    $siono="1";
+    $fechapreparacion = $RegEstudio['fecha_preparacion'];
  
     $fechadeseadaporelusuario = ucwords(strtolower($RegEstudio['fecha_preparacion']));
    
-    $String = '';
-
+    
     $String .= '
                 <td align="center">'. $cups .'</td>
                 <td align="center">'. $fechasolicitud .'</td>
                 <td align="center">'. $siono.'</td>
                 <td align="center">'. $fechapreparacion.'</td>               
-                <td align="center">'. $fechadeseadaporelusuario .'</td>
+                <td align="center">'. " " .'</td>
                                                        ';
             return $String;
 }
