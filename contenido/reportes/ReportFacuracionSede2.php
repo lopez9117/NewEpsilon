@@ -102,6 +102,7 @@ include("../select/select.php");
                                                                 <td width="25%">Sede:
                                                                     <select name="sede" id="sede">
                                                                         <option value="">.: Seleccione :.</option>
+                                                                        <option value="100">.: Parque de Bello y conquis:.</option>
                                                                         <?php
                                                                         while ($rowSede = mysql_fetch_array($ListaSede)) {
                                                                             echo '<option value="' . $rowSede['idsede'] . '">' . $rowSede['descsede'] . '</option>';

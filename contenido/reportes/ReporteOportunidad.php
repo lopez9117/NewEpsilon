@@ -5,9 +5,8 @@ $cn = Conectarse();
 
 //variables
 $desde = trim(base64_decode($_GET['FchDesde']));
- $hasta = trim(base64_decode($_GET['FchHasta'])); 
-$idSede = trim(base64_decode($_GET['sede'])); 
-$descSede = trim(base64_decode($_GET['descSede']));
+$hasta = trim(base64_decode($_GET['FchHasta'])); 
+
 
 //convertir el documento en excel
 header("Expires: 0");
@@ -15,24 +14,20 @@ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header("content-disposition: attachment;filename=OportunidadAsignacionCitas".$descSede.'-'.desde.'-'.$hasta.".xls");
 
 //obtener totalidad de estudios
-$SqlAgenda = mysql_query("SELECT id_informe, id_paciente, idestudio, id_prioridad, idservicio,
-id_tecnica, idtipo_paciente, fecha_solicitud, hora_solicitud FROM r_informe_header  WHERE fecha_solicitud
-BETWEEN '$desde' AND '$hasta' AND idsede = '$idSede' ORDER BY idservicio, fecha_solicitud, hora_solicitud ASC", $cn);
-$ConAgenga = mysql_num_rows($SqlAgenda);
-function GetPaciente($cn, $idPaciente)
-{
-    $SqlPaciente = mysql_query("SELECT p.nom1,p.nom2, p.ape1,p.ape2, eps.eapb,i.cod_documento,p.fecha_nacimiento,s.desc_sexo FROM r_paciente p
+$SqlAgenda = mysql_query("SELECT  t.cod_documento,p.id_paciente,p.fecha_nacimiento,s.desc_sexo,p.ape1,p.ape2, p.nom1,p.nom2,eps.eapb, e.cups_iss, i.fecha_solicitud,i.fecha_preparacion,i.lugar_realizacion FROM r_paciente p
+INNER JOIN tipo_documento t ON  t.idtipo_documento = p.idtipo_documento
+INNER JOIN r_sexo s ON s.id_sexo =  p.id_sexo
 INNER JOIN eps eps ON eps.ideps = p.ideps
-INNER JOIN tipo_documento i ON  i.idtipo_documento = p.idtipo_documento
-INNER JOIN r_sexo s ON s.id_sexo =  p.id_sexo 
- WHERE p.id_paciente = '$idPaciente'" , $cn);
+INNER JOIN r_informe_header i ON i.id_paciente = p.id_paciente 
+INNER JOIN r_estudio e ON e.idestudio = i.idestudio where  (e.cups_iss BETWEEN '881112' and '882841' or e.cups_iss BETWEEN '883101' and '883910')  AND  i.fecha_solicitud BETWEEN '$desde' AND '$hasta' AND (i.lugar_realizacion ='32' or i.lugar_realizacion ='15')", $cn);
 
-
-    $RegPaciente = mysql_fetch_array($SqlPaciente);
-    $tipoderegistro = 2;
 
     
+    $RegPaciente = mysql_fetch_array($SqlAgenda);
+
+    $tipoderegistro = 2;
     $tipodeid = ucwords(strtolower($RegPaciente['cod_documento']));
+    $idpaciente = ucwords(strtolower($RegPaciente['id_paciente']));
     $apellido1 = ucwords(strtolower($RegPaciente['ape1']));
     $apellido2 = ucwords(strtolower($RegPaciente['ape2']));
     $nombre1 = ucwords(strtolower($RegPaciente['nom1'])); 
@@ -40,46 +35,16 @@ INNER JOIN r_sexo s ON s.id_sexo =  p.id_sexo
     $fecha_nacimiento = ucwords(strtolower($RegPaciente['fecha_nacimiento']));
     $sexo = ucwords(strtolower($RegPaciente['desc_sexo']));
     $eps = ucwords(strtolower($RegPaciente['eapb']));
-    $String = '';
-
-    $String .= '<td align="center">' . $tipoderegistro . '</td>
-                <td align="center">' . "" . '</td> 
-                <td align="center">' . $tipodeid . '</td> 
-                <td align="center">' . $idPaciente . '</td> 
-                <td align="center">' . $fecha_nacimiento . '</td>
-                <td align="center">' . $sexo . '</td>
-                <td align="center">' . $apellido1 . '</td>
-                <td align="center">' . $apellido2 . '</td>
-                 <td align="center">' . $nombre1 . '</td>
-                <td align="center">' . $nombre2 . '</td>
-                <td align="center">' . $eps . '</td>';
-    return $String;
-}
-function GetEstudio($cn, $idInforme, $idPaciente){
-    $ConEstudio = mysql_query("SELECT i.idestudio, i.id_tecnica, i.idservicio, i.idtipo_paciente, e.nom_estudio, t.desc_tecnica, ser.descservicio, tp.desctipo_paciente,e.cups_iss,i.fecha_solicitud,i.fecha_preparacion FROM r_informe_header i
-    INNER JOIN r_estudio e ON e.idestudio = i.idestudio
-    INNER JOIN r_tecnica t ON t.id_tecnica = i.id_tecnica
-    INNER JOIN servicio ser ON ser.idservicio = i.idservicio
-    inner JOIN r_tipo_paciente tp ON tp.idtipo_paciente = i.idtipo_paciente
-    WHERE i.id_informe = '$idInforme' AND i.id_paciente = '$idPaciente'", $cn);
-    $RegEstudio = mysql_fetch_array($ConEstudio);
-    $cups= ucwords(strtolower($RegEstudio['cups_iss']));
-    $fechasolicitud= ucwords(strtolower($RegEstudio['fecha_solicitud']));
+      $cups= ucwords(strtolower($RegPaciente['cups_iss']));
+    $fechasolicitud= ucwords(strtolower($RegPaciente['fecha_solicitud']));
     $siono="1";
-    $fechapreparacion = $RegEstudio['fecha_preparacion'];
- 
-    $fechadeseadaporelusuario = ucwords(strtolower($RegEstudio['fecha_preparacion']));
+    $fechapreparacion = $RegPaciente['fecha_preparacion']; 
+    $fechadeseadaporelusuario = ucwords(strtolower($RegPaciente['fecha_preparacion']));
+
+
+
+
    
-    
-    $String .= '
-                <td align="center">'. $cups .'</td>
-                <td align="center">'. $fechasolicitud .'</td>
-                <td align="center">'. $siono.'</td>
-                <td align="center">'. $fechapreparacion.'</td>               
-                <td align="center">'. " " .'</td>
-                                                       ';
-            return $String;
-}
 ?>
 <style type="text/css">
     body { font-family: Arial, Helvetica, sans-serif; font-size: x-small; }
@@ -93,9 +58,7 @@ function GetEstudio($cn, $idInforme, $idPaciente){
     .text-center { text-align: center; background-color: #000066; }
 </style>
 <table border="1" rules="all">
-    <tr align="center">
-        <td colspan="16"><?php echo $descSede ?></td>
-    </tr>
+    
     <tr align="center">
     <td width="8%">Tipo de registro</td>
     <td width="8%">Consecutivo de registro</td>
@@ -115,22 +78,30 @@ function GetEstudio($cn, $idInforme, $idPaciente){
         <td width="8%">Fecha para la cual el usuario solicito que le fuera asignada la cita(fecha deseada)</td>
     </tr>
 
-     <?php
-        if($ConAgenga>=1){
-            while($RowAgenda = mysql_fetch_array($SqlAgenda)){
-                echo '<tr align="center">';
-               $idPaciente = $RowAgenda['id_paciente'];
-                $FechaSolicitud = $RowAgenda['fecha_solicitud'];
-                $IdInforme = $RowAgenda['id_informe'];
-                $idEstudio = $RowAgenda['idestudio'];
-                $HoraSolicitud = $RowAgenda['hora'];
-                
-                echo GetPaciente($cn, $idPaciente);
-                echo GetEstudio($cn, $IdInforme, $idPaciente);                         
-                echo '</tr>';
+    
+ <?php
+
+      while($row = mysql_fetch_array($SqlAgenda)) {
+            printf("<tr>
+
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s&nbsp;</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            <td>&nbsp;%s</td>
+            </tr>","2"," ",$row["cod_documento"],$row["id_paciente"],$row["fecha_nacimiento"],$row["desc_sexo"],$row["ape1"],$row["ape2"],$row["nom1"],$row["nom2"], $row["eapb"],$row["cups_iss"],$row["fecha_solicitud"],$siono,$row["fecha_preparacion"]," ");
             }
-        }
-    ?>
-
-
+ ?>
+    
 </table>

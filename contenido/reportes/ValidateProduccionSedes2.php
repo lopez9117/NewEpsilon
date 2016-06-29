@@ -20,7 +20,7 @@ $desde = $_GET['FechaDesde']; $hasta =$_GET['FechaHasta']; $idSede = $_GET['sede
         <th align="center" width="16%">Estudios / Procedimientos Realizados</th>
        
         <th align="center" width="50%">reporte Oprotunidad</th>
-         <th align="center" width="60%">reporte Encuesta Satisfaccion</th>
+         <th align="center" width="60%">reporte de control</th>
 
     </tr>
 </thead>
@@ -55,7 +55,7 @@ $XlsIco = 'src="../../images/excel.png" width="20" height="20"';
 
     echo '<td align="center"><a href="ReporteOportunidad.php'.$VarUrl.'"><img '.$XlsIco.' alt="Descargar Oportunidad en Asignacion" title="Descargar Oportunidad en Asignacion" /></a></td>';
 
-      echo '<td align="center"><a href="ReporteEncuestaSatisfaccion.php'.$VarUrl.'"><img '.$XlsIco.' alt="Descargar Oportunidad en Asignacion" title="Descargar Oportunidad en Asignacion" /></a></td>';
+      echo '<td align="center"><a href="Reportedecontrol.php'.$VarUrl.'"><img '.$XlsIco.' alt="Descargar Reporte de control" title="Descargar Reporte de control" /></a></td>';
 	echo '</tr>';
 ?>
 <tbody>
