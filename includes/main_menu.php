@@ -168,9 +168,26 @@ Estadisticas</a></span><br />
           <p><span style=""> <a class="class_login" style="text-decoration:none;font-size:16px" href="../contenido/encuestas/index.php?User=<?php echo base64_encode($CurrentUser) ?>" target="_blank">Encuestas<br />
           </a></span><span class="class_tr03" style="font-weight:normal;">Realice encuestas de los usuarios y auditoria de estas.</span><br />
           </p>
+          
+
 </div></td>
       </tr>
     </table></td>
+
+  <td height="100" align="center"><table width="80%">
+      <tr>  
+<td width="25%"><a class="class_nombre" style="text-decoration:none" href="../contenido/eventos/menu.php?User=<?php echo base64_encode($CurrentUser) ?>" target="_blank"> <img src="../images/evento.png" alt="" width="72" height="72" border="0" id="Image7" /></a></td>
+        <td width="75%" valign="middle"><div style="margin-left:4px"> 
+          <p><span style=""> <a class="class_login" style="text-decoration:none;font-size:16px" href="../contenido/Eventos/menu.php?User=<?php echo base64_encode($CurrentUser) ?>" target="_blank">Eventos Adversos<br />
+          </a></span><span class="class_tr03" style="font-weight:normal;">ingrese cada uno de los eventos adversos que se presenten en la compañia.</span><br />
+          </p>
+          </div></td>
+      </tr>
+    </table></td>
+
+
+
+
     <td height="100" align="center">&nbsp;</td>
   </tr>
   <tr><td width="25%" height="100" align="center">&nbsp;</td><td width="25%" height="100" align="center">&nbsp;</td><td width="25%" height="100" align="center">&nbsp;</td><td width="25%" height="100" align="center">&nbsp;</td></tr><tr><td colspan=4 background="" height="8" align="center"><!--<div style="border-bottom: #FFFFFF 4px dotted"></div>--></td></tr></table></td>
