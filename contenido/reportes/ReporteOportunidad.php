@@ -22,28 +22,6 @@ INNER JOIN r_informe_header i ON i.id_paciente = p.id_paciente
 INNER JOIN r_estudio e ON e.idestudio = i.idestudio where  (e.cups_iss BETWEEN '881112' and '882841' or e.cups_iss BETWEEN '883101' and '883910')  AND  i.fecha_solicitud BETWEEN '$desde' AND '$hasta' AND (i.lugar_realizacion ='32' or i.lugar_realizacion ='15')", $cn);
 
 
-    
-    $RegPaciente = mysql_fetch_array($SqlAgenda);
-
-    $tipoderegistro = 2;
-    $tipodeid = ucwords(strtolower($RegPaciente['cod_documento']));
-    $idpaciente = ucwords(strtolower($RegPaciente['id_paciente']));
-    $apellido1 = ucwords(strtolower($RegPaciente['ape1']));
-    $apellido2 = ucwords(strtolower($RegPaciente['ape2']));
-    $nombre1 = ucwords(strtolower($RegPaciente['nom1'])); 
-    $nombre2 = ucwords(strtolower($RegPaciente['nom2']));
-    $fecha_nacimiento = ucwords(strtolower($RegPaciente['fecha_nacimiento']));
-    $sexo = ucwords(strtolower($RegPaciente['desc_sexo']));
-    $eps = ucwords(strtolower($RegPaciente['eapb']));
-      $cups= ucwords(strtolower($RegPaciente['cups_iss']));
-    $fechasolicitud= ucwords(strtolower($RegPaciente['fecha_solicitud']));
-    $siono="1";
-    $fechapreparacion = $RegPaciente['fecha_preparacion']; 
-    $fechadeseadaporelusuario = ucwords(strtolower($RegPaciente['fecha_preparacion']));
-
-
-
-
    
 ?>
 <style type="text/css">
