@@ -1,0 +1,30 @@
+label { font-weight: bold; color: #444; font-size: 14px; }
+input { font-size: 13px; }
+input[type="text"] { margin: 10px 0; background: #fff; border: 3px solid #ccc; color: #777; display: block; max-width: 100%; outline: none; padding: 7px 8px; }
+input[type="submit"] { margin: 10px 0; background: #0088B2; color: #fff; padding: 8px 14px; font-weight: bold; display: inline-block; border: none; cursor: pointer; }
+input[type="submit"]:hover { background: #444; }
+legend {
+    display: block;
+    padding-left: 4px;
+    padding-right: 4px;
+    border: none;
+    color: #0088B2
+}
+
+h2{
+
+
+	color: #fff
+}
+
+#estilo1{
+
+	color:#FFF;
+
+	background:#0088B2;
+
+text-align: center; 
+font-size:18px; 
+border: 1px solid#008B8B;
+
+}
