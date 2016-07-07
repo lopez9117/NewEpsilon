@@ -712,7 +712,13 @@ if ($documento == "") {
                             <label for="sedacion1"><strong>Sedaci&oacute;n </strong></label>
                             <input type="checkbox" name="sedacion1" id="sedacion1" value="1"/></td>
                     </tr>
-                        <td><strong>Fecha y hora de solicitud Nueva</strong><br>
+                        <td><strong>Fecha y hora de solicitud</strong><br>
+                            <input name="fechasolicitud1" type="text" value="<?php echo $fecha;
+                            echo $hoy ?>" id="datepicker1" readonly/>
+                            <span class="asterisk">*</span>
+                            <input type="text" name="horasolicitud1" placeholder="00:00" class="textmedium" id="hora1"/>
+                            <span class="asterisk">*</span></td>
+                            <td><strong>Fecha y hora de solicitud</strong><br>
                             <input name="fechasolicitud1" type="text" value="<?php echo $fecha;
                             echo $hoy ?>" id="datepicker1" readonly/>
                             <span class="asterisk">*</span>

@@ -52,12 +52,12 @@ function cancelarCita(idInforme, usuario) {
             <td width="28%">Sede:<br><label for="sede"></label>
                 <select name="sede" id="sede" onChange="mostrarAgenda()">
                     <option value="32">Clinica Conquistadores</option>
-
+                    
                 </select><span class="asterisk">*</span></td>
             <td width="20%">Servicio:<br>
                 <select name="servicio" id="servicio" onChange="mostrarAgenda()">
-                    <option value="1">Rayos X</option>
-
+                    <option value="1">RayosX</option>
+                    
                 </select><span class="asterisk">*</span>
                 <input type="hidden" name="usuario" id="usuario" value="<?php echo $usuario ?>">
             </td>
@@ -65,7 +65,7 @@ function cancelarCita(idInforme, usuario) {
                 Estado:<br>
                 <select name="estado" id="estado" onChange="mostrarAgenda()">
                     <option value="1">Agendados</option>
-                    <option value="6">Cancelados</option>
+                   
                 </select><span class="asterisk">*</span>
             </td>
             <td>

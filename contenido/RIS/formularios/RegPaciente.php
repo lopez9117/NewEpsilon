@@ -228,10 +228,26 @@ if ($documento == "") {
                         </select>
                         <span class="asterisk">*</span>
                         </label></td>
+
+
+                          <td><strong>Regimen</strong><br>
+                        <select name="regimen" >
+                            
+                                
+                                <option value="2">Subsidiado</option>
+                                <option value="1">Contributivo </option>
+                          
+                        </select>
+                      
+                        </label></td>
+
+
+
+
                     <td><strong>Nivel</strong><br><select name="nivel_afiliacion" class="textlarge">
                             <option value="0">N/A</option>
                             <?php
-                            for ($x = 1; $x <= 4; $x = $x + 1) {
+                            for ($x = 0; $x < 4; $x = $x + 1) {
                                 ?>
                                 <option value="<?php echo $x ?>"
                                     <?php
@@ -576,7 +592,7 @@ if ($documento == "") {
                         <td><strong>Ubicacion</strong><br>
                             <input type="text" name="ubicacion" class="text" placeholder="Ubicaci�n del paciente"
                                    onKeyUp="this.value=this.value.toUpperCase()"/>
-                          
+                            <span class="asterisk">*</span></td>
                         <td><strong>Medico solicitante</strong><br>
                             <input type="text" name="medsolicita" class="text"
                                    placeholder="Medico que solicita el estudio"
@@ -588,20 +604,14 @@ if ($documento == "") {
                             <input type="file" id="archivo" name="archivos[]" multiple="multiple"/></td>
                         <td><strong>Fecha y hora de solicitud</strong><br>
                             <input name="fechasolicitud" type="text" value="<?php echo $fecha;
-                            echo $hoy ?>" id="datepicker" readonly/><br>
-                           
+                            echo $hoy ?>" id="datepicker" readonly/>
+                            <span class="asterisk">*</span>
                             <input type="text" name="horasolicitud" placeholder="00:00" class="textmedium" id="hora"/>
-                           
-
-                        <td><strong>Fecha para la cual el usuario solicito que le fuera asignada la cita(fecha deseada)</strong><br>
-                            <input name="fechanueva" type="text" value="<?php echo $fecha;
-                            echo $hoy ?>" id="datepicker" readonly/>                         
-                           </td>
-
+                            <span class="asterisk">*</span></td>
                         <td><strong>Fecha y hora de preparaci&oacute;n</strong><br>
                             <input type="text" name="fechapreparacion" id="datepicker3"
-                                   value="<?php echo $fecha_actual ?>" readonly/><br>
-                            <span class="asterisk" id="val_fecha_preparacion" ></span>
+                                   value="<?php echo $fecha_actual ?>" readonly/>
+                            <span class="asterisk" id="val_fecha_preparacion" style="display: none">*</span>
                             <input type="text" name="horapreparacion" onBlur="MostrarCitas()" placeholder="00:00"
                                    class="textmedium"
                                    id="hora3"/>
@@ -609,10 +619,10 @@ if ($documento == "") {
                         <td><strong>Fecha y hora de la cita</strong><br>
                             <input type="text" name="fechacita" id="datepicker2" value="<?php echo $fecha_actual ?>"
                                    onChange="MostrarCitas()" readonly/>
-                           
+                            <span class="asterisk">*</span>
                             <input type="text" name="horacita" placeholder="00:00" class="textmedium" id="hora2"
                                    onChange="ValidarCita();" onBlur="ValidarCita()"/>
-                            
+                            <span class="asterisk">*</span></td>
                     </tr>
                     <td colspan="4">
                     <textarea name="observaciones" id="observaciones" cols="45" rows="5"
@@ -642,7 +652,6 @@ if ($documento == "") {
                             <input type="text" name="norden1" id="norden1" class="text"
                                    placeholder="Numero de ingreso u orden de servicio" onfocus="MostrarEstudios(1)"/>
                             <span class="asterisk">*</span>
-                            
                         <td width="24%"><strong>Entidad Reponsable de Pago (ERP):</strong><br/>
                             <select name="erp1" class="text" id="erp1">
                                 <option value="">.: Seleccione :.</option>
@@ -803,33 +812,7 @@ if ($documento == "") {
                             <label for="sedacion1"><strong>Sedaci&oacute;n </strong></label>
                             <input type="checkbox" name="sedacion1" id="sedacion1" value="1"/></td>
                     </tr>
-                    <td><strong>Fecha y hora de solicitud</strong><br>
-                        <input name="fechasolicitud1" type="text" value="<?php echo $fecha;
-                        echo $hoy ?>" id="datepicker1" readonly/><br>
-                        
-                        <input type="text" name="horasolicitud1" placeholder="00:00" class="textmedium" id="hora1"/>
-                        <span class="asterisk">*</span></td>
-
-                     <td><strong>Fecha para la cual el usuario solicito que le fuera asignada la cita (fecha deseada)</strong><br>
-                            <input name="fechanueva1" type="text" value="<?php echo $fecha;
-                            echo $hoy ?>" id="datepicker" readonly/>
-                           
-                           </td>
-
-                    <td><strong>Fecha y hora de preparaci&oacute;n</strong><br>
-                        <input type="text" name="fechapreparacion" id="datepicker31"
-                               value="<?php echo $fecha_actual ?>" readonly/><br>
-                        <span class="asterisk" id="val_fecha_preparacion1" style="display: none"></span>
-                        <input type="text" name="horapreparacion1" onBlur="MostrarCitas(1)" placeholder="00:00"
-                               class="textmedium"
-                               id="hora31"/>
-                        <span class="asterisk" id="val_hora_preparacion1" style="display: none">*</span></td>
-                    <td><strong>Fecha y hora de la cita</strong><br>
-                        <input type="text" name="fechacita1" id="datepicker21" value="<?php echo $fecha_actual ?>"
-                               onChange="MostrarCitas()" readonly/>
-                       
-                        <input type="text" name="horacita1" placeholder="00:00" class="textmedium" id="hora21"/>
-                       </td>
+                    
                     </tr>
                     <td colspan="4">
                     <textarea name="observaciones1" id="observaciones1" cols="45" rows="5"

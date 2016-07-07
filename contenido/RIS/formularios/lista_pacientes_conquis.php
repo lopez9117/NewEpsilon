@@ -7,6 +7,7 @@ header("Pragma: no-cache");
 //funcion para abrir conexion
 $cn = Conectarse();
 //declaracion de variables por GET
+
 $fecha = $_GET['fecha'];
 $sede = $_GET['sede'];
 $servicio = $_GET['servicio'];
@@ -28,16 +29,18 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
 $horas_estaticas = array();
 $m = 60;
 
-for ($h = 7; $h <= 19; $h++)
+for ($h = 7; $h <= 18; $h++)
 {
     for ($m = $m - 60; $m <= 59; $m += 7)
     {
         array_push($horas_estaticas, ($h <= 9 ? '0' : '') . $h . ':' . ($m <= 9 ? '0' : '') .$m. ':00');
     }
 }
+
 $m=60;
 for ($h = 19; $h <= 20; $h++)
 {
+
     for ($m = $m-60; $m <= 59; $m += 10)
     {
         array_push($horas_estaticas, ($h <= 9 ? '0' : '') . $h . ':' . ($m <= 9 ? '0' : '') .$m. ':00');
@@ -83,7 +86,13 @@ for ($i = 0; $i < count($horas_estaticas); $i++)
 }
 
 ?>
-
+<script type="text/javascript">
+ function GetVentanaHora($horaesc) {
+  // alert('Has hecho click en "miboton"');
+ //mysql_query("INSERT INTO r_estadohora (id_horaesc, fecha, sede, servicio) VALUES ('$horaesc','$fecha','$sede','$servicio')",$cn);
+  alert("'.$horaesc.'");
+  }
+  </script>
 
 <script type="text/javascript">
     $(document).ready(function () { $('#Lista_Pacientes').dataTable({"sPaginationType": "full_numbers"}); })
@@ -112,6 +121,8 @@ for ($i = 0; $i < count($horas_estaticas); $i++)
     <?php foreach ($registros as $reg):?>
 
         <?php
+		
+		$horaesc = $reg['hora'];
         echo '<tr>';
         echo '<td align="left">' . $reg['hora'] . '</td>';
         echo '<td align="left">' . $reg['id_paciente'] . '</td>';
@@ -137,27 +148,43 @@ for ($i = 0; $i < count($horas_estaticas); $i++)
         echo '<td align="left">' . $reg['desc_prioridad'] . '</td>';
         echo '<td align="center">';
         //mostrar las tareas de acuerdo al estado de la cita
-        if($reg['id_paciente'] == 0)
+       if($reg['id_paciente'] == 0)
         {                
                 ?>
-                <td align="center"><a href="GestionCitas.php?fecha=<?php echo base64_encode($fecha) ?>&sede=<?php echo base64_encode($sede) ?>&servicio=<?php echo base64_encode($servicio) ?>&usuario=<?php echo base64_encode($usuario) ?>"
-   target="pop-up"
-   onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1920, height=1080, top=85, left=140'); return false;"
+
+                <script>
+    $(function () { $(".boton").button().click(function (event) { event.preventDefault(); }); });
+</script>
+                <td align="center"><a href="GestionCitas.php?horaesc=<?php echo base64_encode($horaesc) ?>&fecha=<?php echo base64_encode($fecha) ?>&sede=<?php echo base64_encode($sede) ?>&servicio=<?php echo base64_encode($servicio) ?>&usuario=<?php echo base64_encode($usuario) ?>"
+
+    target="pop-up"
+   onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1920, height=1080, top=85, left=140'); GetVentanaHora(); return false;"
    class="boton">Agendar Paciente</a></td>
                 <?php
             }
-            else
-            {
-                ?>
-                <td align="center"><a
-                        href="CancelarCita.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
-                        target="pop-up"
-                        onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=550, top=100, left=100'); return false;"><img
-                            src="../../../images/button_cancel.png" width="15" height="15" title="Cancelar Cita"
-                            alt="Cancelar Cita"/></a></td>
-                <?php
-            }        
-        ?>
+             else    if ($estado == 1 || $estado == 6) {
+                if ($reg['id_estadoinforme'] > 1 || $reg['id_estadoinforme'] == 6) {
+                    ?>
+                    <td align="left"><a
+                            href="CancelarCita.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
+                            target="pop-up"
+                            onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=550, top=100, left=100'); return false;"><img
+                                src="../../../images/reload.png" width="15" height="15" title="Modificar Cita"
+                                alt="Modificar Cita"/></a></td>
+                    <?php
+                } else {
+                    ?>
+                    <td align="left"><a
+                            href="CancelarCita.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
+                            target="pop-up"
+                            onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=550, top=100, left=100'); return false;"><img
+                                src="../../../images/button_cancel.png" width="15" height="15" title="Cancelar Cita"
+                                alt="Cancelar Cita"/></a></td>
+                    <?php
+                }
+            }
+            ?>
+
         <td align="center">
             <a href="AccionesAgenda/VerDetalles.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($usuario) ?>"
                target="pop-up"
@@ -204,8 +231,5 @@ for ($i = 0; $i < count($horas_estaticas); $i++)
     <?php endforeach;?>
     <tbody>
 </table>
-<script>
-    $(function () { $(".boton").button().click(function (event) { event.preventDefault(); }); });
-</script>
-<br>
 
+<br>
