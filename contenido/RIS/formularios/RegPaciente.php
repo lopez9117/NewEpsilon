@@ -623,7 +623,13 @@ if ($documento == "") {
                             <input type="text" name="horacita" placeholder="00:00" class="textmedium" id="hora2"
                                    onChange="ValidarCita();" onBlur="ValidarCita()"/>
                             <span class="asterisk">*</span></td>
+
+                        <td><strong>Fecha Solicitud deseada</strong><br>
+                            <input name="fechadeseada" type="text" value="<?php echo $fecha;
+                            echo $hoy ?>" id="datepicker">
+                            <span class="asterisk">*</span>
                     </tr>
+
                     <td colspan="4">
                     <textarea name="observaciones" id="observaciones" cols="45" rows="5"
                               placeholder="Realizar las observaciones necesarias" style="width:60%"></textarea></td>
