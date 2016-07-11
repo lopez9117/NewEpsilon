@@ -15,10 +15,8 @@ echo '<font size="2" color="#FF0000">Por favor llenar los campos con asterisco p
 }
 else
 {
-$sqlvalidacionhoraservicio = mysql_query("SELECT DISTINCT(l.id_informe) FROM r_log_informe l
-INNER JOIN r_informe_header i ON i.id_informe=l.id_informe
-where l.id_estadoinforme=1 AND idsede='$sede' AND fecha='$fechaCita' AND idservicio='$servicio' AND hora='$hora' AND id_paciente!='$idpaciente'", $cn);
-$contadorhoraservicio=mysql_num_rows($sqlvalidacionhoraservicio);
+
+
 
 if ($contadorhoraservicio>=1)
 {
