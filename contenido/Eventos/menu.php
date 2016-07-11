@@ -59,7 +59,7 @@ body {
 				  </table></td><td width="25%" height="100" align="center"><table width="80%">
 				  <tr>
 				    <td width="25%"><a class="class_nombre" style="text-decoration:none" href="ReportFacuracionSede2.php"> <img src="img/ex.png" alt="" width="72" height="72" id="Image3" border="0" /></a></td>
-				    <td width="75%" valign="middle"><div style="margin-left:4px"> <span style=""> <a class="class_login" style="text-decoration:none;font-size:16px" href="reporte.php">Reporte de eventos</a></span><br />
+				    <td width="75%" valign="middle"><div style="margin-left:4px"> <span style=""> <a class="class_login" style="text-decoration:none;font-size:16px" href="ReportFacuracionSede2.php">Reporte de eventos</a></span><br />
 				      <span class="class_tr03" style="font-weight:normal;">Desarcarge el reporte de todos los eventos registrados</span> </div></td>
 				    </tr>
 				          </p>
