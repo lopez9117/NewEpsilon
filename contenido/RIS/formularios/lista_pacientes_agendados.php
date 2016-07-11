@@ -31,14 +31,15 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="Lista_Pacientes">
 <thead>
     <tr align="center">
-        <th width="5%">Hora</th>
-        <th width="10%">Id</th>
-        <th width="15%">Paciente</th>
+        <th width="4%">Hora</th>
+        <th width="8%">Id</th>
+        <th width="13%">Paciente</th>
         <th width="10%">Ubicacion</th>
-        <th width="20%">Estudio</th>
+		<th width="10%">ERP</th>
+        <th width="19%">Estudio</th>
         <?php if ($servicio == 7) { echo ' <th align="left" width="10%">Gu&iacute;a</th>'; }?>
-        <th width="10%">Tecnica</th>
-        <th width="10%">Prioridad</th>
+        <th width="9%">Tecnica</th>
+        <th width="9%">Prioridad</th>
         <th width="10%" colspan="1">Tareas</th>
     </tr>
 </thead>

@@ -49,9 +49,7 @@ function cancelarCita(idInforme, usuario) {
     <table width="100%">
         <tr>
             <td width="15%">Fecha:<br><input type="text" id="datepicker" name="fecha"value="<?php echo date("m/d/Y"); ?>" onChange="mostrarAgenda()"><span class="asterisk">*</span></td>
-            
             <td width="28%">Sede:<br><label for="sede"></label>
-
                 <select name="sede" id="sede" onChange="mostrarAgenda()">
                     <option value="0">.: Seleccione :.</option>
                     <?php while ($rowSede = mysql_fetch_array($listaSede)) { ?>

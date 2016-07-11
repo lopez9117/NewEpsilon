@@ -1,6 +1,6 @@
 <?php
-  require_once("../../../dbconexion/conexion.php");
-  $cn = conectarse();
+	require_once("../../../dbconexion/conexion.php");
+	$cn = conectarse();
 ?>
 <script language="javascript" type="text/javascript" src="../javascript/ajax.js"></script>
 <script language="javascript" src="../../../js/jquery.js" type="text/javascript"></script>
@@ -11,14 +11,14 @@
 $(document).ready(function() {
    // Interceptamos el evento submit
     $('#form, #fat, #busqueda').submit(function() {
-    // Enviamos el formulario usando AJAX
+ 		// Enviamos el formulario usando AJAX
         $.ajax({
-    type: 'POST',
-    url: $(this).attr('action'),
-    data: $(this).serialize(),
-    // Mostramos un mensaje con la respuesta de PHP
-    success: function(data) {
-    $('#formulario').html(data);
+		type: 'POST',
+		url: $(this).attr('action'),
+		data: $(this).serialize(),
+		// Mostramos un mensaje con la respuesta de PHP
+		success: function(data) {
+		$('#formulario').html(data);
             }
         })
         return false;

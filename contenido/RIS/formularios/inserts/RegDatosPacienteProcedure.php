@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //archivo de conexion a la BD
 try {
     require_once("../../../../dbconexion/conexionmysqli.php");
@@ -22,7 +22,6 @@ try {
     $hora = date("G:i:s");
 //declaracion de variables con POST   $eps = $_POST['ideps']  
     $tipo_documento = $_POST['tipo_documento'];
-    
     $fechanacimiento = convertfecha($_POST['fecha_nacimiento']);
     if ($fechanacimiento == "") {
         $fechanacimiento = '0000-00-00';
@@ -41,6 +40,7 @@ try {
     }
     $tipo_afiliacion = $_POST['tipo_afiliacion'];
     $nivel_afiliacion = $_POST['nivel_afiliacion'];
+    $regimen =$_POST['regimen'];
     $dep = $_POST['dep'];
     $mun = $_POST['mun'];
     $barrio = $_POST['barrio'];
@@ -69,8 +69,6 @@ try {
     $fechacita = $_POST['fechacita'];
     $fechacita = convertfecha($fechacita);
     $horacita = $_POST['horacita'];
-    //$fechanueva= $_POST['fechanueva'];
-    
     $fechapreparacion = $_POST['fechapreparacion'];
     $fechapreparacion = convertfecha($fechapreparacion);
     $horapreparacion = $_POST['horapreparacion'];
@@ -137,7 +135,7 @@ try {
     if ($sede == 5 || $sede == 35) {
         $portatil = 0;
     }
-    $procedureAgendamiento = mysqli_query($cn, "CALL AgregarAgenda('$ndocumento','$pnombre','$snombre','$papellido','$sapellido','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$fechanacimiento','$barrio','$direccion','$email','$eps','$telefonos','$nivel_afiliacion','$edadpaciente','$peso','$estudio','$prioridad',1,'$extremidad','$sede','$servicio','$ubicacion','$portatil','$tecnica','$tipopaciente','$medsolicita','$horasolicitud','$fechasolicitud','$fechapreparacion $horapreparacion','$norden','$desc_extremidad',' ',' ','$anestesia','$sedacion','$peso','$erp',$realizacion,'$usuario','$fechacita','$horacita','$copago','0','0','0','0','$guia','0','$comparativa','$proyeccionesrx','0','0','$reconstruccion','$observaciones','$adicional')") or throw_ex(mysqli_error());
+    $procedureAgendamiento = mysqli_query($cn, "CALL AgregarAgenda('$ndocumento','$pnombre','$snombre','$papellido','$sapellido','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$fechanacimiento','$barrio','$direccion','$email','$eps','$telefonos','$nivel_afiliacion','$regimen','$edadpaciente','$peso','$estudio','$prioridad',1,'$extremidad','$sede','$servicio','$ubicacion','$portatil','$tecnica','$tipopaciente','$medsolicita','$horasolicitud','$fechasolicitud','$fechapreparacion $horapreparacion','$norden','$desc_extremidad',' ',' ','$anestesia','$sedacion','$peso','$erp',$realizacion,'$usuario','$fechacita','$horacita','$copago','0','0','0','0','$guia','0','$comparativa','$proyeccionesrx','0','0','$reconstruccion','$observaciones','$adicional')") or throw_ex(mysqli_error());
     //echo "CALL AgregarAgenda('$ndocumento','$pnombre','$snombre','$papellido','$sapellido','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$fechanacimiento','$barrio','$direccion','$email','$eps','$telefonos','$nivel_afiliacion','$edadpaciente','$peso','$estudio','$prioridad',1,'$extremidad','$sede','$servicio','$ubicacion','$portatil','$tecnica','$tipopaciente','$medsolicita','$horasolicitud','$fechasolicitud','$fechapreparacion $horapreparacion','$norden','$desc_extremidad',' ',' ','$anestesia','$sedacion','$peso','$erp',$realizacion,'$usuario','$fechacita','$horacita','$copago','0','0','0','0','$guia','0','$comparativa','$proyeccionesrx','0','0','$reconstruccion','$observaciones','$adicional')";
     $returnProcedure = mysqli_fetch_array($procedureAgendamiento);
     $respuesta = $returnProcedure['answer'];
