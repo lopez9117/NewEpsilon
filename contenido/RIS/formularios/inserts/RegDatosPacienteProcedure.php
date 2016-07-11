@@ -73,8 +73,9 @@ try {
     $fechapreparacion = $_POST['fechapreparacion'];
     $fechapreparacion = convertfecha($fechapreparacion);
     $horapreparacion = $_POST['horapreparacion'];
-    $fechasolicitud2 = $_POST['fechasolicitud2'];
-    $fechasolicitud2 = convertfecha($fechasolicitud2);
+
+    $fechadeseada = $_POST['fechadeseada'];
+    $fechadeseada = convertfecha($fechadeseada);
 
     $observaciones = $_POST['observaciones'];
 //obtener cantidad de caracteres enviados en las observaciones para evitar registros vacios
@@ -139,7 +140,7 @@ try {
     if ($sede == 5 || $sede == 35) {
         $portatil = 0;
     }
-    $procedureAgendamiento = mysqli_query($cn, "CALL AgregarAgenda('$ndocumento','$pnombre','$snombre','$papellido','$sapellido','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$fechanacimiento','$barrio','$direccion','$email','$eps','$telefonos','$nivel_afiliacion','$regimen','$edadpaciente','$peso','$estudio','$prioridad',1,'$extremidad','$sede','$servicio','$ubicacion','$portatil','$tecnica','$tipopaciente','$medsolicita','$horasolicitud','$fechasolicitud','$fechapreparacion $horapreparacion','$fechasolicitud2','$norden','$desc_extremidad',' ',' ','$anestesia','$sedacion','$peso','$erp',$realizacion,'$usuario','$fechacita','$horacita','$copago','0','0','0','0','$guia','0','$comparativa','$proyeccionesrx','0','0','$reconstruccion','$observaciones','$adicional')") or throw_ex(mysqli_error());
+    $procedureAgendamiento = mysqli_query($cn, "CALL AgregarAgenda('$ndocumento','$pnombre','$snombre','$papellido','$sapellido','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$fechanacimiento','$barrio','$direccion','$email','$eps','$telefonos','$nivel_afiliacion','$regimen','$edadpaciente','$peso','$estudio','$prioridad',1,'$extremidad','$sede','$servicio','$ubicacion','$portatil','$tecnica','$tipopaciente','$medsolicita','$horasolicitud','$fechasolicitud','$fechapreparacion $horapreparacion','$fechadeseada','$norden','$desc_extremidad',' ',' ','$anestesia','$sedacion','$peso','$erp',$realizacion,'$usuario','$fechacita','$horacita','$copago','0','0','0','0','$guia','0','$comparativa','$proyeccionesrx','0','0','$reconstruccion','$observaciones','$adicional')") or throw_ex(mysqli_error());
     //echo "CALL AgregarAgenda('$ndocumento','$pnombre','$snombre','$papellido','$sapellido','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$fechanacimiento','$barrio','$direccion','$email','$eps','$telefonos','$nivel_afiliacion','$edadpaciente','$peso','$estudio','$prioridad',1,'$extremidad','$sede','$servicio','$ubicacion','$portatil','$tecnica','$tipopaciente','$medsolicita','$horasolicitud','$fechasolicitud','$fechapreparacion $horapreparacion','$norden','$desc_extremidad',' ',' ','$anestesia','$sedacion','$peso','$erp',$realizacion,'$usuario','$fechacita','$horacita','$copago','0','0','0','0','$guia','0','$comparativa','$proyeccionesrx','0','0','$reconstruccion','$observaciones','$adicional')";
     $returnProcedure = mysqli_fetch_array($procedureAgendamiento);
     $respuesta = $returnProcedure['answer'];

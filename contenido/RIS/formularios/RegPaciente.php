@@ -625,7 +625,7 @@ if ($documento == "") {
                             <span class="asterisk">*</span></td>
 
                         <td><strong>Fecha Solicitud deseada</strong><br>
-                            <input name="fechasolicitud2" type="text" value="<?php echo $fecha;
+                            <input name="fechadeseada" type="text" value="<?php echo $fecha;
                             echo $hoy ?>" id="datepicker">
                             <span class="asterisk">*</span>
                     </tr>
