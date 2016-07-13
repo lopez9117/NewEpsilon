@@ -76,12 +76,13 @@ function tomar() {
     observacion = document.estadistica.observacion.value;
     lectura = document.estadistica.lectura.value;
     peso = document.estadistica.pesop.value;
-    contrastereal = $('contrastereal').val();
+    contrastereal = document.estadistica.contrastereal.value;
     codiss = document.estadistica.codiss.value;
     espaciosadicionales = 0;
     id_tecnica = document.estadistica.id_tecnica.value;
     servicio = document.estadistica.servicio.value;
     distancia = $('#distancia').val();
+    
 
     foco = $('#foco').val();
 
@@ -104,14 +105,23 @@ function tomar() {
     else if (servicio == 1 && portatil == 1 && (MAS == "" || KV == "" || lectura == "" || distancia == "" || dosis == "")) {
         mensaje = '<font color="#FF0000">Por favor llene los datos necesarios para el registro de la realizacion del estudio</font>';
         document.getElementById('respuesta').innerHTML = mensaje;
-    } else if (id_tecnica == 3 && (contrastereal == "" || contrastereal == 0)) { // peso == "" || peso == 0 &&
+
+    } else if (contrastereal == "" ) { 
         mensaje = '<font color="#FF0000">Por favor ingrese la cantidad de contraste</font>';
         document.getElementById('respuesta').innerHTML = mensaje;
-    } else if ((servicio == 5 || servicio == 4 || servicio == 23) && (fluoroscopia == 0 || fluoroscopia == "")) {
+    }else if (  contrastereal< 10 ){
+        mensaje = '<font color="#FF0000">Por favor ingrese la cantidad de contrate mayor a 30</font>';
+        document.getElementById('respuesta').innerHTML = mensaje;
+    }else if(contrastereal == 0 ){
+        mensaje = '<font color="#FF0000">Por favor ingrese la cantidad de contrate diferente de 0</font>';
+        document.getElementById('respuesta').innerHTML = mensaje;
+    }
+    else if ((servicio == 5 || servicio == 4 || servicio == 23) && (fluoroscopia == 0 || fluoroscopia == "")) {
         alert(fluoroscopia);
         mensaje = '<font color="#FF0000">El campo Tiempo Fluoroscopia es un campo Obligatorio</font>';
         document.getElementById('respuesta').innerHTML = mensaje;
     }
+    
     else {
         document.estadistica.submit();
         return window.opener.CargarAgenda();
@@ -280,4 +290,6 @@ function Clonar() {
     $('#contador').val(numero);
 }
 
+
+ 
 

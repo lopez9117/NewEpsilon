@@ -49,9 +49,6 @@ if ($sotano == "") {
     $sotano = 0;
 }
 $contraste = $_POST['contrastereal'];
-if ($contraste == "") {
-    $contraste = 0;
-}
 
 $medicogeneral = $_POST['nombremedicogeneral'];
 $anesteciologo = $_POST['anestesiologo'];
@@ -140,7 +137,6 @@ if ($estado == 10) {
 }
 //registrar el worlist
 mysql_query("UPDATE r_worklist_temp SET procesado='4', observacion= '$observaciones' WHERE idestudio=$idInforme", $cn) or showerror(mysql_error(), 18);
-
 mysql_query("INSERT INTO r_estadistica (id_informe, mas, kv, i_danadas, r_innecesarias, total_dosis,distancia,foco,tiempofluoroscopia,DLP) VALUES('$idInforme','$MAS','$KV','$i_dañadas','$r_innecesarias','$Dosis','$distancia','$foco','$fluoroscopia','$DLP')", $cn) or showerror(mysql_error(), 19);
 
 function showerror($error, $line)

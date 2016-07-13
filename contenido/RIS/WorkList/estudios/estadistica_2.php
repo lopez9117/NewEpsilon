@@ -45,8 +45,6 @@ if ($servicio == 2) {
         });
     </script>
     <script language="javascript" src="js/estadistica.js"></script>
-
-
     <style type="text/css">
         .asterisk {
             color: #F00;
@@ -128,7 +126,7 @@ if ($servicio == 2) {
                 </table>
             </fieldset>
 
-            <!-- CABECERA TIPO REALIZANCION DEL ESTUDIO-->
+            <!--            CABECERA TIPO REALIZANCION DEL ESTUDIO-->
             <fieldset>
                 <legend><strong>Tipo realizacion de estudio</strong></legend>
                 <table width="100%" border="0" align="center">
@@ -289,19 +287,18 @@ if ($servicio == 2) {
                         </td>
                         <td><?php if ($reg['id_tecnica'] == 3 || $reg['id_tecnica'] == 6) {
                             ?>
-                            <label for="contrastereal">Cantidad de Contraste Utilizado en (cc):</label>
+                            <label for="contrastereal">Cantidad de Contraste Utilizado:</label>
                             <input type="text" name="contrastereal" id="contrastereal"
                                    placeholder="Ingresa la cantidad de contraste utilizado" value="0"
                                 <?php if ($reg['id_tecnica'] == 3 || $reg['id_tecnica'] == 6) {
                                     echo 'style="display:block"';
                                 } else {
                                     echo 'style="display:none"';
-                                } ?> />
+                                } ?>/>
 
                             <div id="showmessage">
                                 <div>
-                                    <?php } ?><span
-                                    class="asterisk1">*</span>
+                                    <?php } ?>
                         </td>
                         <td>
 
@@ -387,8 +384,9 @@ if ($servicio == 2) {
                             <div id="respuesta"></div>
                         </td>
                         <td colspan="1"></td>
-                        <td colspan="1" align="right"><input name="Registrar" type="button" onclick="tomar()"  value="Realizado"/></td>
-                    </tr> 
+                        <td colspan="1" align="right"><input name="Registrar" type="button" onclick="tomar()"
+                                                             value="Realizado"/></td>
+                    </tr>
                 </table>
             </fieldset>
 
@@ -436,11 +434,6 @@ INNER JOIN r_motivodevolucion m ON m.idmotivo= o.idmotivo
     </div>
 </div>
 <script type="text/javascript">
-
-
-
-
-
     var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "integer", {useCharacterMasking: true});
     var sprytextfield2 = new Spry.Widget.ValidationTextField("sprytextfield2", "integer", {
         useCharacterMasking: true,

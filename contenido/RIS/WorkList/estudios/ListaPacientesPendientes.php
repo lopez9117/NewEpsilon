@@ -10,7 +10,7 @@ $servicio = $_GET['servicio'];
 $usuario = $_GET['usuario'];
 $fecha = date("Y-m-d",strtotime($fecha));
 //consultar la cantidad de estudios que estan agendados para la fecha especificada
-$sqlagenda = mysql_query("SELECT MAX(l.id_estadoinforme) AS id_estadoinforme, l.hora, l.id_informe, l.fecha, i.id_paciente, i.ubicacion,
+$sqlagenda = mysql_query("SELECT MAX(l.id_estadoinforme) AS id_estadoinforme, l.hora, l.id_informe, l.fecha, i.id_paciente, i.ubicacion,k.reconstruccion,
 CONCAT(p.nom1,' ', p.nom2,' ', p.ape1,' ', p.ape2) AS nombre,i.idsede,i.idservicio, es.nom_estudio, pr.desc_prioridad, t.desc_tecnica, tp.desctipo_paciente FROM r_log_informe l
 INNER JOIN r_informe_header i ON i.id_informe = l.id_informe
 INNER JOIN r_paciente p ON p.id_paciente = i.id_paciente
@@ -18,6 +18,7 @@ INNER JOIN r_estudio es ON es.idestudio = i.idestudio
 INNER JOIN r_prioridad pr ON pr.id_prioridad = i.id_prioridad
 INNER JOIN r_tecnica t ON t.id_tecnica = i.id_tecnica
 INNER JOIN r_tipo_paciente tp ON tp.idtipo_paciente = i.idtipo_paciente
+INNER JOIN r_informe_facturacion k ON k.id_informe = i.id_informe
 WHERE l.fecha BETWEEN '2014-03-01' AND '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio'
 AND l.id_estadoinforme = '1' AND i.id_estadoinforme='1' OR i.id_estadoinforme = '9' AND l.id_estadoinforme = '9' GROUP BY l.id_informe HAVING i.idsede = '$sede' AND i.idservicio = '$servicio' AND l.fecha BETWEEN '2014-03-01' AND '$fecha'", $cn);
 $sqlSede = mysql_query("SELECT descsede FROM sede WHERE idsede='$sede'", $cn);
@@ -30,7 +31,7 @@ $regServicio = mysql_fetch_array($sqlServicio);
    $('#tabla_listado_pacientes').dataTable( { //CONVERTIMOS NUESTRO LISTADO DE LA FORMA DEL JQUERY.DATATABLES- PASAMOS EL ID DE LA TABLA
         "sPaginationType": "full_numbers",
 		"aaSorting": [[ 0, "asc" ]],
-"aoColumns": [ null, null, null, null, null, null, null, null ]
+"aoColumns": [ null, null, null, null, null, null, null, null, null ]
 } );
 } );
  </script>
@@ -49,12 +50,13 @@ $regServicio = mysql_fetch_array($sqlServicio);
     <th align="left" width="10%">Tecnica</th>
     <th align="left" width="10%">T.Paciente</th>
     <th align="left" width="10%">Prioridad</th>
+    <th align="left" width="5%">3D</th>
     <th align="center" width="10%">Tareas</th>
 </tr>
 </thead>
 <tfoot>
 <tr>
-    <th></th><th></th><th></th><th></th>                   
+    <th></th><th></th><th></th><th></th>                  
 </tr>
 </tfoot>
 <tbody>
@@ -77,6 +79,7 @@ while($reg =  mysql_fetch_array($sqlagenda))
 		echo '<td align="left" bgcolor="#FF0000">'.ucwords(strtolower($reg['desc_tecnica'])).'</td>';
 		echo '<td align="left" bgcolor="#FF0000">'.ucwords(strtolower($reg['desctipo_paciente'])).'</td>';
 		echo '<td align="left" bgcolor="#FF0000">'.ucwords(strtolower($reg['desc_prioridad'])).'</td>';
+		echo '<td align="left" bgcolor="#FF0000">'.ucwords(strtolower($reg['reconstruccion'])).'</td>';
 		//consultar la cantidad de adjuntos que se registraron
 		$sqlAdjunto = mysql_query("SELECT ad.id_informe,ad.adjunto,ad.id_adjunto,i.id_informe FROM r_adjuntos ad
 		INNER JOIN r_informe_header i ON i.id_informe = ad.id_informe where i.id_informe='$reg[id_informe]'", $cn);
@@ -148,6 +151,7 @@ while($reg =  mysql_fetch_array($sqlagenda))
    }
    else
    {
+	   
 		//imprimir registros de manera normal
 		echo '<td align="left">'.$reg['id_paciente'].'</td>';
 		echo '<td align="left">'.ucwords(strtolower($reg['nombre'])).'</td>';
@@ -155,6 +159,7 @@ while($reg =  mysql_fetch_array($sqlagenda))
 		echo '<td align="left">'.ucwords(strtolower($reg['desc_tecnica'])).'</td>';
 		echo '<td align="left">'.ucwords(strtolower($reg['desctipo_paciente'])).'</td>';
 		echo '<td align="left">'.ucwords(strtolower($reg['desc_prioridad'])).'</td>';
+		echo '<td align="left">'.ucwords(strtolower($reg['reconstruccion'])).'</td>';
 		//consultar la cantidad de adjuntos que se registraron
 		$sqlAdjunto = mysql_query("SELECT ad.id_informe,ad.adjunto,ad.id_adjunto,i.id_informe FROM r_adjuntos ad
 		INNER JOIN r_informe_header i ON i.id_informe = ad.id_informe where i.id_informe='$reg[id_informe]'", $cn);
