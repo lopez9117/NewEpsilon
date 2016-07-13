@@ -44,7 +44,7 @@ font-size:12px;
 </style>
 <body>
 <div>
-<h1>Bienvenido</h1>
+<h1>Bienvenido !</h1>
 <h3><?php echo $reg['nombres'].'&nbsp;'.$reg['apellidos']?></h3>
 <h2>A su sistema de información radiologia (RIS) en &epsilon;psilón</h2>
 </div>
