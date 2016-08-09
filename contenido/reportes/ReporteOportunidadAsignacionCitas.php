@@ -83,6 +83,7 @@ function CalularOportunidad($fechaSolicitud, $fechaAsignacion){
     }
     else{
         return  $Oportunidad;
+        
     }
 }
 ?>

@@ -85,8 +85,8 @@ $sede=$_GET['sede'];
                             <?php if ($rowSede['idsede'] == $sede) {
                                 echo 'selected';
                             } ?>><?php echo $rowSede['descsede'] ?></option>';
-                    <?php
-                    }
+                            <?php
+                            }
                     ?>
                 </select><span class="asterisk">*</span></td>
             <td><label for="servicio"></label>
@@ -94,7 +94,7 @@ $sede=$_GET['sede'];
                     <option value="">.: Seleccione :.</option>
                     <?php
                     while ($regListaServicio = mysql_fetch_array($listaServicio)) {
-                        echo '<option value="' . $regListaServicio['idservicio'] . '">' . $regListaServicio['descservicio'] . '</option>';
+                        echo '<option value="' . $regListaServicio['idservicio'] . '">'. $regListaServicio['descservicio'] . '</option>';
                     }
                     ?>
                 </select><span class="asterisk">*

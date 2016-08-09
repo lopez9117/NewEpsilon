@@ -4,7 +4,7 @@ function Conectarse(){
 	//variables que contienen los datos necesarios para la conexion
 $servidor="190.0.27.100";
 $basededatos="epsilon";
-$usuario="root";
+$usuario="reporte";
 $clave="root";
 	//validar si hay conexion o no con la base de datos
 $cn = mysql_connect($servidor,$usuario,$clave) or die ("Error conectando a la base de datos");

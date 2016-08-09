@@ -13,10 +13,11 @@
 	$fecha = date("Y-m-d",strtotime($fecha));
 	$sql = mysql_query("SELECT i.id_informe, i.id_paciente, i.ubicacion, i.id_tecnica,
 	l.fecha, l.hora, CONCAT(p.nom1,' ',p.nom2,' ',p.ape1,' ',p.ape2) AS paciente, e.nom_estudio,
-	tp.desctipo_paciente, tec.desc_tecnica FROM r_informe_header i
+	tp.desctipo_paciente, tec.desc_tecnica,f.desc_erp FROM r_informe_header i
 	INNER JOIN r_log_informe l ON l.id_informe = i.id_informe
 	INNER JOIN r_paciente p ON p.id_paciente = i.id_paciente
 	INNER JOIN r_estudio e ON e.idestudio = i.idestudio
+	INNER JOIN r_erp f ON f.erp = i.erp
 	INNER JOIN servicio ser ON ser.idservicio = i.idservicio
 	INNER JOIN r_tipo_paciente tp ON tp.idtipo_paciente = i.idtipo_paciente
 	INNER JOIN r_tecnica tec ON tec.id_tecnica = i.id_tecnica
@@ -42,6 +43,7 @@
         <th align="left" width="10%">N° Documento</th>
         <th align="left" width="12%">Nombres y Apellidos</th>
         <th align="left" width="25%">Estudio</th>
+         <th align="left" width="10%">ERP</th>
         <th align="left" width="10%">Tecnica</th>
         <th align="left" width="10%">Ubicacion</th>
         <th align="left" width="10%">T. Paciente</th>
@@ -61,6 +63,7 @@
        echo '<td align="left">'.$reg['id_paciente'].'</td>';
        echo '<td align="left">'.$reg['paciente'].'</td>';
 	   echo '<td align="left">'.$reg['nom_estudio'].'</td>';
+	   echo '<td align="left">'.$reg['desc_erp'].'</td>';
 	   echo '<td align="left">'.$reg['desc_tecnica'].'</td>';
 	   echo '<td align="left">'.$reg['ubicacion'].'</td>';
 	   echo '<td align="left">'.$reg['desctipo_paciente'].'</td>';

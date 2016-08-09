@@ -18,7 +18,7 @@ $consulta = mysql_query("SELECT s.idsolicitud, f.nombres, f.apellidos FROM solic
 INNER JOIN funcionario f ON s.idfuncionario = f.idfuncionario WHERE idarea=8 and idsatisfaccion=3 and s.idfuncionario='$CurrentUser' AND idestado_solicitud!=1 AND idestado_solicitud!=2", $cn);
 $regusuario = mysql_fetch_array($consulta);	
 $count = mysql_num_rows($consulta);
-if ($area==8 || $area==2)
+if ($area==3 ||$area==8 || $area==2)
 {
 $listado =  mysql_query("SELECT so.idsolicitud, so.desc_requerimiento, so.fechahora_solicitud,so.idestado_solicitud, so.horasolicitud, so.idsatisfaccion,
 s.descsede, e.descestado_solicitud,CONCAT(f.nombres,'<br>', f.apellidos) AS nombre, so.idfuncionario, p.desc_prioridad FROM solicitud so
@@ -162,7 +162,7 @@ No<input type="radio" name="'.$reg['idsolicitud'].'"('.$reg['idsolicitud'].') ch
 	 if ($reg['idestado_solicitud']==1 || $reg['idestado_solicitud']==2 )
 	   {
 		   echo '<td>No se ha Visitado</td>';
-		   if ($area==8 || $area==2) 
+		   if ($area==3 || $area==8 || $area==2) 
 	       {   
 		   echo '<td align="center">
            <select name="'.$reg['idsolicitud'].'" id="'.$reg['idsolicitud'].'" onchange="CambiarEstado('.$reg['idsolicitud'].')">

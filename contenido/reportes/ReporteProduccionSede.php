@@ -8,10 +8,12 @@ $cn = Conectarse();
 $desde = base64_decode($_GET['FchDesde']);
 $hasta = base64_decode($_GET['FchHasta']); 
 $idSede = base64_decode($_GET['sede']);
+
 $ConLectura = mysql_query("SELECT DISTINCT(i.id_informe) AS id_informe FROM r_informe_header i LEFT JOIN r_log_informe l ON i.id_informe = l.id_informe
-WHERE i.idsede = '$idSede' AND l.fecha BETWEEN '$desde' AND '$hasta' AND l.id_estadoinforme = '8' ORDER BY i.idservicio ASC", $cn);
+WHERE i.idsede = '$idSede' or i.erp = '$idsede' AND l.fecha BETWEEN '$desde' AND '$hasta' AND l.id_estadoinforme = '8' ORDER BY i.idservicio ASC", $cn);
+
 $SinLectura = mysql_query("SELECT DISTINCT(i.id_informe) AS id_informe FROM r_informe_header i LEFT JOIN r_log_informe l ON i.id_informe = l.id_informe
-WHERE i.idsede = '$idSede' AND l.fecha BETWEEN '$desde' AND '$hasta' AND i.id_estadoinforme = '10'  ORDER BY i.idservicio ASC", $cn);
+WHERE i.idsede = '$idSede' or i.erp = '$idsede'  AND l.fecha BETWEEN '$desde' AND '$hasta' AND i.id_estadoinforme = '10'  ORDER BY i.idservicio ASC", $cn);
 //lineas para exportar a excel
 header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -38,6 +40,7 @@ table{
 <td>EPS</td>
 <td>Ingreso</td>
 <td>Servicio</td>
+<td>ERP</td>
 <td>Estudio</td>
 <td>Tecnica</td>
 <td>Portatil</td>
@@ -75,6 +78,7 @@ table{
 <td>Oportunidad Aprobacion</td>
 <td>Oportunidad Publicacion</td>-->
 </tr>
+
 <?php
 $contConLectura = mysql_num_rows($ConLectura);
 if($contConLectura>=1)
@@ -116,6 +120,7 @@ if($contConLectura>=1)
 		echo '</td>';
 	}
 }
+
 $contSinLectura = mysql_num_rows($SinLectura);
 //imprimir filas de archivos sin lectura
 if($contSinLectura>=1) {

@@ -8,7 +8,7 @@
     $idFuncionario = base64_decode($_GET['document']); $FechaInicio = base64_decode($_GET['fchstart']);
     $FechaFinal = base64_decode($_GET['fchstop']);
     //consultar la cantidad de turnos registrador para el funcionario
-    $TurnosFuncionario = mysql_query("SELECT DISTINCT (idturno), time, fecha FROM turno_funcionario WHERE fecha BETWEEN '$FechaInicio' AND '$FechaFinal'
+    $TurnosFuncionario = mysql_query("SELECT DISTINCT (idturno), time, fecha FRO WHERE fecha BETWEEN '$FechaInicio' AND '$FechaFinal'
     AND idfuncionario = '$idFuncionario' AND idtipo_turno = '0' ORDER BY fecha ASC", $cn);
 	$Funcionario = funcionario::GetNombresApellidos($cn, $idFuncionario);
 ?>

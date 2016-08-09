@@ -73,8 +73,9 @@ body {
 		    <td height="19"><table width="95%" border="0" align="center">
 		      <tr>
 		        <td width="15%">Desde:<br>
-                  <input name="FechaDesde" type="text" id="FechaDesde"/>*
+                  <input name="FechaDesde" type="text" id="FechaDesde" onclick="document.getElementById('boton').disabled=false;" />*
             <script>
+
 			$( "#FechaDesde" ).datepicker({
 				changeMonth: true,
 				changeYear: true,
@@ -84,7 +85,7 @@ body {
 		</script></td>
 		        <td width="15%">Hasta:<br>
                   <label for="FechaHasta"></label>
-                  <input type="text" name="FechaHasta" id="FechaHasta" />*
+                  <input type="text" name="FechaHasta" id="FechaHasta" onclick="document.getElementById('boton').disabled=false;"" />*
                   <script>
 			$( "#FechaHasta" ).datepicker({
 				changeMonth: true,
@@ -94,7 +95,7 @@ body {
 			});
 		</script>
         </td>
-        <td><br><input type="button" value="Consultar" class="ui-button" onclick="VerProduccion()" /></td>
+        <td><br><input type="button" value="Consultar" class="ui-button" id="boton"  onclick="VerProduccion();this.disabled='disabled'"/></td>
 		        </tr>
                 <tr>
                 <td colspan="3"><div id="contenido"></div></td>

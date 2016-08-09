@@ -41,7 +41,7 @@
 		procesado='2',fecha_nacimiento='$fecha_nacimiento' WHERE id_paciente='$documento' AND procesado!=5", $cn);		
 		}
 		//actualizar la informacion del paciente si hubo algun cambio
-		mysql_query("UPDATE r_paciente SET fecha_nacimiento='$fecha_nacimiento', id_sexo = '$genero', id_tipoafiliacion = '$tipo_afiliacion', cod_mun = '$mun', cod_dpto = '$dep', idtipo_documento = '$tipo_documento', nom1 = '$pnombre', nom2 = '$snombre', ape1 = '$papellido', ape2 = '$sapellido', barrio = '$barrio', direccion = '$direccion', email = '$email', ideps = '$eps', tel = '$tel / $movil', nivel = '$nivel_afiliacion', edad = '$edadpaciente' WHERE id_paciente = '$documento'", $cn);
+		mysql_query("UPDATE r_paciente SET fecha_nacimiento='$fecha_nacimiento', id_sexo = '$genero', id_tipoafiliacion = '$tipo_afiliacion', cod_mun = '$mun', cod_dpto = '$dep', idtipo_documento = '$tipo_documento', nom1 = '$pnombre', nom2 = '$snombre', ape1 = '$papellido', ape2 = '$sapellido', barrio = '$barrio', direccion = '$direccion', email = '$email', ideps = '$eps', tel = '$tel / $movil', nivel = '$nivel_afiliacion', edad = '$edadpaciente', idregimen = 1 WHERE id_paciente = '$documento'", $cn);
 		//modificar los estudios que estaban registrados con el numero de cedula errado
 		mysql_query("UPDATE r_informe_header SET id_paciente = '$documento' WHERE id_paciente = '$documentoOld'");
 		//eliminar el registro errado en la tabla pacientes
@@ -61,7 +61,7 @@
 		procesado='2',fecha_nacimiento='$fecha_nacimiento' WHERE id_paciente='$documentoOld' AND procesado!=5", $cn);
 		}
 		//crear un nuevo registro en la base de datos, con la informacion registrada por el usuario
-		mysql_query("INSERT INTO r_paciente VALUES ('$documento','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$pnombre','$snombre','$papellido','$sapellido','$fecha_nacimiento','$barrio','$direccion','$email','$eps','$tel/$movil','$nivel_afiliacion','$edadpaciente','0')",$cn);
+		mysql_query("INSERT INTO r_paciente VALUES ('$documento','$genero','$tipo_afiliacion','$mun','$dep','$tipo_documento','$pnombre','$snombre','$papellido','$sapellido','$fecha_nacimiento','$barrio','$direccion','$email','$eps','$tel/$movil','$nivel_afiliacion','$edadpaciente','0','1')",$cn);
 		//modificar la tabla r_informe_header con el numero de documento actual
 		mysql_query("UPDATE r_informe_header SET id_paciente = '$documento' WHERE id_paciente = '$documentoOld'", $cn);
 		//eliminar el registro anterior

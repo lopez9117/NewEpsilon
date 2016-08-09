@@ -291,17 +291,19 @@ if ($servicio == 2) {
                             ?>
                             <label for="contrastereal">Cantidad de Contraste Utilizado en (cc):</label>
                             <input type="text" name="contrastereal" id="contrastereal"
-                                   placeholder="Ingresa la cantidad de contraste utilizado" value="0"
+                                   placeholder="Ingresa la cantidad de contraste utilizado" 
                                 <?php if ($reg['id_tecnica'] == 3 || $reg['id_tecnica'] == 6) {
                                     echo 'style="display:block"';
                                 } else {
                                     echo 'style="display:none"';
                                 } ?> />
-
-                            <div id="showmessage">
+                                 
+                            <div id="showmessage"> <span class="asterisk1">*</span>
                                 <div>
-                                    <?php } ?><span
-                                    class="asterisk1">*</span>
+                                    <?php } ?>
+
+
+                                   
                         </td>
                         <td>
 

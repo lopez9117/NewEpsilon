@@ -2,26 +2,21 @@
 ini_set('max_execution_time', 0);
 include("../../dbconexion/conexion.php");
 $cn = Conectarse();
-
 //variables
 $desde = trim(base64_decode($_GET['FchDesde']));
 $hasta = trim(base64_decode($_GET['FchHasta'])); 
-
-
 //convertir el documento en excel
 header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-header("content-disposition: attachment;filename=OportunidadAsignacionCitas".$descSede.'-'.desde.'-'.$hasta.".xls");
-
+header("content-disposition: attachment;filename=OportunidadAsignacionCitas ".$desde.'-'.desde.'-'.$hasta.".xls");
 //obtener totalidad de estudios
-$SqlAgenda = mysql_query("SELECT  t.cod_documento,p.id_paciente,p.fecha_nacimiento,s.desc_sexo,p.ape1,p.ape2, p.nom1,p.nom2,eps.eapb, e.cups_iss, i.fecha_solicitud,i.fecha_preparacion,i.lugar_realizacion FROM r_paciente p
+$SqlAgenda = mysql_query("SELECT  t.cod_documento,p.id_paciente,p.fecha_nacimiento,s.desc_sexo,p.ape1,p.ape2, p.nom1,p.nom2,eps.eapb, e.cups_iss, i.fecha_solicitud,r.fecha,i.lugar_realizacion FROM r_paciente p
 INNER JOIN tipo_documento t ON  t.idtipo_documento = p.idtipo_documento
 INNER JOIN r_sexo s ON s.id_sexo =  p.id_sexo
 INNER JOIN eps eps ON eps.ideps = p.ideps
 INNER JOIN r_informe_header i ON i.id_paciente = p.id_paciente 
-INNER JOIN r_estudio e ON e.idestudio = i.idestudio where  (e.cups_iss BETWEEN '881112' and '882841' or e.cups_iss BETWEEN '883101' and '883910')  AND  i.fecha_solicitud BETWEEN '$desde' AND '$hasta' AND (i.lugar_realizacion ='32' or i.lugar_realizacion ='15')", $cn);
-
-
+INNER JOIN r_estudio e ON e.idestudio = i.idestudio
+INNER JOIN r_log_informe r ON r.id_informe = i.id_informe where  (e.cups_iss BETWEEN '881112' and '882841' or e.cups_iss BETWEEN '883101' and '883910')  AND  i.fecha_solicitud BETWEEN '$desde' AND '$hasta' AND i.lugar_realizacion in ('32','15','37','38','45','47','48','49','53','58')  AND r.id_estadoinforme = 1", $cn);
    
 ?>
 <style type="text/css">
@@ -58,10 +53,8 @@ INNER JOIN r_estudio e ON e.idestudio = i.idestudio where  (e.cups_iss BETWEEN '
 
     
  <?php
-
       while($row = mysql_fetch_array($SqlAgenda)) {
             printf("<tr>
-
             <td>&nbsp;%s</td>
             <td>&nbsp;%s&nbsp;</td>
             <td>&nbsp;%s</td>
@@ -78,7 +71,7 @@ INNER JOIN r_estudio e ON e.idestudio = i.idestudio where  (e.cups_iss BETWEEN '
             <td>&nbsp;%s</td>
             <td>&nbsp;%s</td>
             <td>&nbsp;%s</td>
-            </tr>","2"," ",$row["cod_documento"],$row["id_paciente"],$row["fecha_nacimiento"],$row["desc_sexo"],$row["ape1"],$row["ape2"],$row["nom1"],$row["nom2"], $row["eapb"],$row["cups_iss"],$row["fecha_solicitud"],$siono,$row["fecha_preparacion"]," ");
+            </tr>","2"," ",$row["cod_documento"],$row["id_paciente"],$row["fecha_nacimiento"],$row["desc_sexo"],$row["ape1"],$row["ape2"],$row["nom1"],$row["nom2"], $row["eapb"],$row["cups_iss"],$row["fecha_solicitud"],"1",$row["fecha"]," ");
             }
  ?>
     

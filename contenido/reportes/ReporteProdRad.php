@@ -86,6 +86,7 @@ function GetDetalles($IdInforme, $cn){
     //obtener datos de la dosis de radiacion
     $SqlDosisRadiacion = mysql_query("SELECT DISTINCT(e.id_informe), e.mas, e.kv, e.i_danadas, e.r_innecesarias,e.total_dosis FROM r_estadistica e
 	WHERE e.id_informe = '$IdInforme'", $cn);
+    
     $RegDosisRadiacion = mysql_fetch_array($SqlDosisRadiacion);
     //consultar detalles del log
     $SqlDetalles = mysql_query("SELECT DISTINCT(l.id_estadoinforme), CONCAT(l.fecha,' / ',l.hora) AS momento, CONCAT(f.nombres,' ',f.apellidos) AS funcionario FROM r_log_informe l
@@ -101,8 +102,8 @@ function GetDetalles($IdInforme, $cn){
             <td>'.ucwords(strtolower($RegDetalle['ape2'])).'</td>
             <td>'.ucwords(strtolower($RegDetalle['nom_estudio'])).'</td>
             <td>'.$RegDetalle['desc_tecnica'].'</td>
-            <td>'.$RegDosisRadiacion['mas'].'</td>
-            <td>'.$RegDosisRadiacion['kv'].'</td>
+            <td>'.$RegDosisRadiacion['mas'].'</td
+>            <td>'.$RegDosisRadiacion['kv'].'</td>
             <td>'.$RegDosisRadiacion['total_dosis'].'</td>
             <td>'.$RegDosisRadiacion['r_innecesarias'].'</td>
             <td>'.ucwords(strtolower($RegDetalles['funcionario'])).'</td>

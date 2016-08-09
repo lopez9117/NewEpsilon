@@ -54,7 +54,7 @@ $SqlAgenda = mysql_query("select idrol from usuario where idusuario = '114334800
             <td>&nbsp;%s</td>
             <td>&nbsp;%s</td>
             <td>&nbsp;%s</td>
-            </tr>","1","NI","800250192-1","EAPB",$desde,$hasta,"Contador");
+            </tr>","1","05088011980","NI","000800250192",$desde,$hasta,"Contador");
             }
 
          

@@ -16,7 +16,7 @@ $estado = $_GET['estado'];
 $fecha = date("Y-m-d", strtotime($fecha));
 //consulta
 $listado = mysql_query("SELECT i.id_informe, l.hora, l.fecha, i.id_paciente, i.ubicacion, i.id_estadoinforme,
-CONCAT(p.nom1,' ',p.nom2,' ',p.ape1,' ',p.ape2) AS nombre, es.nom_estudio, pr.desc_prioridad, t.desc_tecnica,rif.guia FROM r_log_informe l
+CONCAT(p.nom1,' ',p.nom2,' ',p.ape1,' ',p.ape2) AS nombre, es.nom_estudio, pr.desc_prioridad, t.desc_tecnica,rif.guia, i.idtipo_paciente FROM r_log_informe l
 INNER JOIN r_informe_header i ON i.id_informe = l.id_informe
 INNER JOIN r_paciente p ON p.id_paciente = i.id_paciente
 INNER JOIN r_estudio es ON es.idestudio = i.idestudio
@@ -37,6 +37,7 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
         <th width="10%">Ubicacion</th>
 		<th width="10%">ERP</th>
         <th width="19%">Estudio</th>
+         <th width="19%">tipo paciente</th>
         <?php if ($servicio == 7) { echo ' <th align="left" width="10%">Gu&iacute;a</th>'; }?>
         <th width="9%">Tecnica</th>
         <th width="9%">Prioridad</th>
@@ -52,6 +53,7 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
         echo '<td align="left">' . ucwords(strtolower($reg['nombre'])) . '</td>';
         echo '<td align="left">' . ucwords(strtolower($reg['ubicacion'])) . '</td>';
         echo '<td align="left">' . ucwords(strtolower($reg['nom_estudio'])) . '</td>';
+        echo '<td align="left">' . ucwords(strtolower($reg['idtipo_paciente'])) . '</td>';
         if ($servicio == 7) {
             if ($reg['guia'] == 1048) { echo '<td align="left"">Ecogr&aacute;fica</td>'; }
             elseif ($reg['guia'] == 166) { echo '<td align="left"">Tomogr&aacute;fica</td>'; }
@@ -63,6 +65,22 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
         <table>
             <tr>';
             //mostrar las tareas de acuerdo al estado de la cita
+
+
+        if ($reg['idtipo_paciente']==2){
+?>
+<td align="left"><a
+                            href="admision.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
+                            target="pop-up"
+                            onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1500, height=550, top=100, left=100'); return false;"><img
+                                src="../../../images/us.png" width="15" height="15" title="Admision paciente"
+                                alt="Admision paciente"/></a></td>
+<?php
+}
+
+
+
+
             if ($estado == 1 || $estado == 6) {
                 if ($reg['id_estadoinforme'] > 1 || $reg['id_estadoinforme'] == 6) {
                     ?>
@@ -74,7 +92,18 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
                                 alt="Modificar Cita"/></a></td>
                     <?php
                 } else {
+
+                         
+                
+         
+
+
                     ?>
+                  
+
+
+
+
                     <td align="left"><a
                             href="CancelarCita.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
                             target="pop-up"
@@ -83,7 +112,8 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
                                 alt="Cancelar Cita"/></a></td>
                     <?php
                 }
-            }
+                   }
+            
             ?>
             <td align="center">
                 <a href="AccionesAgenda/VerDetalles.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($usuario) ?>" target="pop-up" onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=800, height=450, top=85, left=140'); return false;"><img src="../../../images/viewmag+.png" width="15" height="15" title="Ver Detalles" alt="Ver Detalles"/></a>
@@ -110,6 +140,11 @@ WHERE l.fecha = '$fecha' AND i.idsede = '$sede' AND i.idservicio = '$servicio' A
                         src="../../../images/fileprint.png" width="15" height="15" title="Generar Código"
                         alt="Generar Código"/></a>
             </td>-->
+
+
+
+
+
         <?php '</tr>';
         echo '</table>';
     }

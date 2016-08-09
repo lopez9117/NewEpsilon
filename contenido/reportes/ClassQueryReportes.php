@@ -41,14 +41,16 @@ class estudio{
 
     function GetEstudio($cn, $idInforme, $idPaciente){
         $ConEstudio = mysql_query("SELECT i.idestudio, i.id_tecnica, i.idtipo_paciente, i.id_prioridad, i.ubicacion, i.portatil, e.nom_estudio, t.desc_tecnica,
-        tp.desctipo_paciente, p.desc_prioridad FROM r_informe_header i
+        tp.desctipo_paciente, p.desc_prioridad,r.desc_erp FROM r_informe_header i
         INNER JOIN r_estudio e ON e.idestudio = i.idestudio
         INNER JOIN r_tecnica t ON t.id_tecnica = i.id_tecnica
         INNER JOIN r_tipo_paciente tp ON tp.idtipo_paciente = i.idtipo_paciente
         INNER JOIN r_prioridad p ON p.id_prioridad = i.id_prioridad
+        INNER JOIN r_erp r ON r.erp = i.erp
         WHERE i.id_informe = '$idInforme' AND i.id_paciente = '$idPaciente'", $cn);
         $RegEstudio = mysql_fetch_array($ConEstudio);
         $Estudio = ucwords(strtolower($RegEstudio['nom_estudio']));
+        $erp = ucwords(strtolower($RegEstudio['desc_erp']));
         $Tecnica = ucwords(strtolower($RegEstudio['desc_tecnica']));
         $TipoPaciente = ucwords(strtolower($RegEstudio['desctipo_paciente']));
         $Prioridad = ucwords(strtolower($RegEstudio['desc_prioridad']));
@@ -62,6 +64,7 @@ class estudio{
         }
         $String = '';
         $String .= '
+        <td>'. $erp .'</td>
         <td>'. $Estudio .'</td>
         <td>'. $Tecnica .'</td>
         <td>'. $ResPortatil .'</td>

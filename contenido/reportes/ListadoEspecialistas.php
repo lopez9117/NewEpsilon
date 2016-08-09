@@ -1,7 +1,7 @@
 ﻿<?php 
 ini_set('max_execution_time', 6000);
 //Conexion a la base de datos
-include('../../dbconexion/conexion.php');
+include('../../dbconexion/conexionreporte.php');
 //funcion para abrir conexion
 $cn = Conectarse();
 //declaracion de variables
@@ -54,6 +54,8 @@ WHERE l.idfuncionario = '$idEspecialista' AND l.fecha BETWEEN '$Fchdesde' AND '$
         echo '<td align="center"><a href="ReporteProduccionEspecialistaExcel.php?Especialista='.base64_encode($idEspecialista).'&FechaInicio='.base64_encode($Fchdesde).'&FechaFinal='.base64_encode($fchHasta).'&NomEspecialista='.base64_encode($NomEspecialista).'"><img src="../../images/excel.png" width="18" height="18" title="Descargar Reporte" alt="Descargar Reporte" /></a></td>';
         echo '</tr>';
     }
+   
+
 ?>
 <tbody>
 </table>

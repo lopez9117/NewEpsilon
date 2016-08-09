@@ -125,7 +125,7 @@ while($reg =  mysql_fetch_array($sqlagenda))
 			<td>
             <?php
             	//validar los estudios con radiaciones ionizantes.
-				if ($servicio==4 || $servicio==5 || $servicio==20 || $servicio==1 || $servicio==10 || $servicio==2)
+				if ($servicio==4 and $reg[""] || $servicio==5 || $servicio==20 || $servicio==1 || $servicio==10 || $servicio==2)
 				{
 					echo '<a href="estadistica.php?usuario='.base64_encode($usuario).'&idInforme='.base64_encode($idInforme).'&sede='.base64_encode($sede).'&servicio='.base64_encode($servicio).'" target="popup" onClick="window.open(this.href, this.target, width=800,height=800); return false;"><img src="../../../../images/apply.png" width="15" height="15" title="Realizar Estudio" alt="Realizar Estudio" />';
 

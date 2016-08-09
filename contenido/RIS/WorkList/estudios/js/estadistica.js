@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by Cristian Sierra on 26/08/2015.
  */
 $(document).ready(function () {
@@ -76,7 +76,12 @@ function tomar() {
     observacion = document.estadistica.observacion.value;
     lectura = document.estadistica.lectura.value;
     peso = document.estadistica.pesop.value;
-    contrastereal = document.estadistica.contrastereal.value;
+   contrastereal = $('contrastereal').val();
+
+    if( id_tecnica != 3 && contrastereal ==""){
+        contrastereal = 0;
+    }
+
     codiss = document.estadistica.codiss.value;
     espaciosadicionales = 0;
     id_tecnica = document.estadistica.id_tecnica.value;
@@ -91,6 +96,10 @@ function tomar() {
     fluoroscopia = $('#tiempofluoroscopia').val();
     r_innecesarias = $('#r_innecesarias').val();
     DLP = $('#DLP').val();
+
+
+
+
     if (codiss == 213609) {
         espaciosadicionales = document.estadistica.adicionales.value;
     }
@@ -106,14 +115,11 @@ function tomar() {
         mensaje = '<font color="#FF0000">Por favor llene los datos necesarios para el registro de la realizacion del estudio</font>';
         document.getElementById('respuesta').innerHTML = mensaje;
 
-    } else if (contrastereal == "" ) { 
-        mensaje = '<font color="#FF0000">Por favor ingrese la cantidad de contraste</font>';
+    }else if( id_tecnica == 3 && contrastereal==" " ){
+         mensaje = '<font color="#FF0000">Por favor infrese medio de contraste con el valor requerido, si lo ingreso en el estudio anterior debe rellenar en 0</font>';
         document.getElementById('respuesta').innerHTML = mensaje;
-    }else if (  contrastereal< 10 ){
+    } else if ( id_tecnica == 3 && contrastereal > 0 && contrastereal < 10 ){
         mensaje = '<font color="#FF0000">Por favor ingrese la cantidad de contrate mayor a 30</font>';
-        document.getElementById('respuesta').innerHTML = mensaje;
-    }else if(contrastereal == 0 ){
-        mensaje = '<font color="#FF0000">Por favor ingrese la cantidad de contrate diferente de 0</font>';
         document.getElementById('respuesta').innerHTML = mensaje;
     }
     else if ((servicio == 5 || servicio == 4 || servicio == 23) && (fluoroscopia == 0 || fluoroscopia == "")) {

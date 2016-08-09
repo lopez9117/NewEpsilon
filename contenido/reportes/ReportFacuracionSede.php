@@ -109,7 +109,7 @@ include("../select/select.php");
                                                                         ?>
                                                                     </select>
                                                                 </td>
-                                                                <td width="25%" align="right">
+                                                                    <td width="25%" align="right">
                                                                     <br><input type="button" value="Consultar" class="ui-button" onclick="VerProduccion()"/>
                                                                 </td>
                                                             </tr>

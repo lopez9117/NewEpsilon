@@ -49,6 +49,10 @@ if ($sotano == "") {
     $sotano = 0;
 }
 $contraste = $_POST['contrastereal'];
+if ($contraste == "") {
+    $contraste = 0;
+}
+
 
 $medicogeneral = $_POST['nombremedicogeneral'];
 $anesteciologo = $_POST['anestesiologo'];
