@@ -9,13 +9,17 @@ $hasta = $_GET['FechaHasta'];
 $erp = $_GET['erp'];
 session_start();
 $CurrentUser = $_SESSION['currentuser'];
-$conERP = mysql_query("SELECT DISTINCT idsede, descsede FROM sede WHERE idsede IN($erp)", $cn);
+
+$conERP = mysql_query("SELECT  erp, desc_erp FROM r_erp WHERE erp IN($erp)", $cn);
 
 if ($erp == 46) {
 
     $erpb = '(18, 24, 42, 21, 19, 23, 22, 20)';
 } elseif ($erp == 51) {
     $erpb = '(17,33)';
+}elseif($erp==58){
+        $erpb='(58,37)';
+
 } else {
     $erpb = '(' . $erp . ')';
 } ?>
@@ -30,12 +34,16 @@ if ($erp == 46) {
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="ListadoSedes">
     <thead>
     <tr>
-        <th align="center" width="20%">Entidad Responsable de Pago</th>
-        <th align="center" width="20%">Procedimientos Realizados</th>
+
+        <th align="center" width="17%">Entidad Responsable de Pago</th>
+        <th align="center" width="16%">Procedimientos Realizados</th>
         <?php if ($CurrentUser!='43987494'){ ?>
-		<th align="center" width="20%">Reporte de Facturacion</th>
-        <th align="center" width="20%">Reporte de Insumos</th><?php } ?>
-        <th align="center" width="20%">Reporte de PACS</th>
+		<th align="center" width="17%">Reporte de Facturacion</th>
+        <th align="center" width="16%">Reporte de Insumos</th><?php } ?>
+        <th align="center" width="17%">Reporte de produccion ERP</th>
+        <th align="center" width="17%">Reporte de PACS</th>
+        
+        
     </tr>
     </thead>
     <tbody>
@@ -46,24 +54,42 @@ if ($erp == 46) {
 
     //mostrar la cantidad de estudios realizados en cada sede
     $regCantidad1 = mysql_fetch_array($conCantidad1);
+
     $regSede = mysql_fetch_array($conERP);
     $total = $regCantidad1['cantidad'];
     echo '<tr>';
-    echo '<td align="center">' . mb_convert_encoding($regSede['descsede'], "UTF-8") . '</td>';
+    echo '<td align="center">' . mb_convert_encoding($regSede['desc_erp'], "UTF-8") . '</td>';
     echo '<td align="center">' . $total . '</td>';
-   if ($CurrentUser!='43987494'){ echo '<td align="center">
+
+   if ($CurrentUser!='43987494'){ 
+    echo '<td align="center">
 	<a href="ReporteProduccionSedeFact.php?erp=' . base64_encode($erp) . '&FchDesde=' . base64_encode($desde) .
         '&FchHasta=' . base64_encode($hasta) . '">
 	<img src="../../images/excel.png" width="20" height="20" alt="Descargar Facturacion" title="Descargar Facturacion" /></a></td>';
+
+
     echo '<td align="center">
 <a href="ReporteInsumosSede.php?erp=' . base64_encode($erp) . '&FchDesde=' . base64_encode($desde) .
         '&FchHasta=' . base64_encode($hasta) . '">
-   <img src="../../images/excel.png" width="20" height="20" alt="Descargar Insumos" title="Descargar Insumos" /></a></td>';}
+   <img src="../../images/excel.png" width="20" height="20" alt="Descargar Insumos" title="Descargar Insumos" /></a></td>';
+
+
+echo '<td align="center">
+<a href="ReporteProduccionerp.php?erp=' . base64_encode($erp) . '&FchDesde=' . base64_encode($desde) .
+        '&FchHasta=' . base64_encode($hasta) . '">
+   <img src="../../images/excel.png" width="20" height="20" alt="Descargar Insumos" title="Descargar Insumos" /></a></td>';
+
+
+
+}
+
     echo '<td align="center">
 <a href="ReportePACS.php?erp=' . base64_encode($erp) . '&FchDesde=' . base64_encode($desde) .
         '&FchHasta=' . base64_encode($hasta) . '">
     	<img src="../../images/excel.png" width="20" height="20" alt="Descargar Reporte PACS" title="Descargar Reporte PACS" /></a></td>';
     echo '</tr>';
+
+
     ?>
     <tbody>
 </table>

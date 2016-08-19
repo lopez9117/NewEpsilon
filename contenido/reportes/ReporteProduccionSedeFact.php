@@ -86,6 +86,9 @@ header("content-disposition: attachment;filename=Facturacion " . $desde . '-' . 
         $erpb = '(18, 24, 42, 21, 19, 23, 22, 20)';
     } elseif ($erp == 51) {
         $erpb = '(17,33)';
+    }elseif($erp==58){
+        $erpb='(58,37)';
+
     } else {
         $erpb = '(' . $erp . ')';
     }

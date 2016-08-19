@@ -160,13 +160,13 @@ $servicio = $reg['idservicio'];
                     <select name="erp" class="text" id="erp">
                         <option value="">.: Seleccione :.</option>
                         <?php
-                        $listaSede = mysql_query("SELECT * FROM sede WHERE idestado_actividad=1 ORDER BY descsede ASC", $cn);
+                        $listaSede = mysql_query("SELECT * FROM r_erp WHERE idestado_actividad=1 ORDER BY desc_erp ASC", $cn);
                         while ($rowerp = mysql_fetch_array($listaSede)) {
                             ?>
-                            <option value="<?php echo $rowerp['idsede'] ?>"
-                                <?php if ($rowerp['idsede'] == $reg['erp']) {
+                            <option value="<?php echo $rowerp['erp'] ?>"
+                                <?php if ($rowerp['erp'] == $reg['erp']) {
                                     echo 'selected';
-                                } ?>><?php echo $rowerp['descsede'] ?></option>
+                                } ?>><?php echo $rowerp['desc_erp'] ?></option>
                         <?php
                         }
                         mysql_free_result($listasede);

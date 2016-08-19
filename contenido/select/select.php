@@ -9,5 +9,6 @@ $ListaPrioridad = mysql_query("SELECT * FROM tipo_prioridad ORDER BY desc_priori
 $ListaSolicitud = mysql_query("SELECT * FROM tipo_solicitud where idarea=3", $cn);
 $ListaServicio = mysql_query("SELECT * FROM servicio  ORDER BY descservicio ASC", $cn);
 $ListaAdquisicion = mysql_query("SELECT * FROM tipo_adquisicion where estado='2'  ORDER BY tipo ASC", $cn);
-$ListaSedeProduccion = mysql_query("SELECT idsede, descsede FROM sede WHERE idestado_actividad != '2' AND idsede NOT IN(17,18,24,42,21,19,23,22,20,33) ORDER BY descsede ASC", $cn);
+$ListaSedeProduccion = mysql_query("SELECT erp, desc_erp FROM r_erp WHERE idestado_actividad != '2' AND erp NOT IN(17,18,24,42,21,19,23,22,20,33) ORDER BY desc_erp ASC", $cn);
+$ListaErp = mysql_query("SELECT erp, desc_erp FROM r_erp ORDER BY desc_erp ASC", $cn);
 ?>

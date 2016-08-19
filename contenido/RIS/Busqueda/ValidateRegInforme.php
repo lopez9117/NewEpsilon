@@ -9,7 +9,7 @@ list($regpaciente, $nombres) = explode("-", $Paciente);
 $sql = mysql_query("SELECT * FROM r_paciente WHERE id_paciente = '$regpaciente'", $cn);
 $res = mysql_num_rows($sql);
 $consulta = mysql_query("SELECT MAX(l.id_estadoinforme) AS estado,MAX(l.fecha) AS fecha, i.id_informe,i.id_estadoinforme,ei.desc_estado,
-(SELECT descsede FROM sede WHERE idsede=i.erp) AS erp,
+er.desc_erp,
 i.id_paciente,p.nom1,p.nom2,p.ape1,p.ape2,s.descservicio,e.nom_estudio,t.desc_tecnica,ei.desc_estado,se.descsede,i.fecha_solicitud,i.ubicacion FROM r_informe_header i
 INNER JOIN r_paciente p ON i.id_paciente=p.id_paciente
 INNER JOIN servicio s ON i.idservicio=s.idservicio
@@ -18,6 +18,7 @@ INNER JOIN r_tecnica t ON i.id_tecnica=t.id_tecnica
 INNER JOIN r_log_informe l ON i.id_informe=l.id_informe
 INNER JOIN r_estadoinforme ei ON i.id_estadoinforme=ei.id_estadoinforme
 INNER JOIN sede se ON i.idsede=se.idsede
+INNER JOIN r_erp er ON er.erp=i.erp
 WHERE i.id_paciente='$regpaciente' GROUP BY l.id_informe, i.id_informe;", $cn);
 ?>
 <script type="text/javascript">
@@ -102,7 +103,7 @@ WHERE i.id_paciente='$regpaciente' GROUP BY l.id_informe, i.id_informe;", $cn);
         echo '<td>' . ucwords(strtolower($reg['desc_tecnica'])) . '</td>';
         echo '<td>' . $estadoinforme . '</td>';
         echo '<td>' . $reg['descsede'] . '</td>';
-        echo '<td>' . $reg['erp'] . '</td>';
+        echo '<td>' . $reg['desc_erp'] . '</td>';
         echo '<td>' . $reg['ubicacion'] . '</td>';
         echo '<td>' . $FechaInforme . '</td>';
         echo '<td>' . $FechaSolicitud . '</td>';

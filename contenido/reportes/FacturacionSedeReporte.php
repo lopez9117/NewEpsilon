@@ -120,8 +120,8 @@ include("../select/select.php");
                     <select name="erp" class="form-control" id="erp" required>
                         <option value="">.: Seleccione :.</option>
                         <?php
-                        while ($rowSede = mysql_fetch_array($ListaSedeProduccion)) {
-                            echo '<option value="' . $rowSede['idsede'] . '">' . $rowSede['descsede'] . '</option>';
+                        while ($rowSede = mysql_fetch_array($ListaErp)) {
+                            echo '<option value="' . $rowSede['erp'] . '">' . $rowSede['desc_erp'] . '</option>';
                         }
                         ?>
                     </select>
