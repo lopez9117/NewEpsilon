@@ -11,7 +11,7 @@ $usuario = $_GET['usuario'];
 $fecha = date("Y-m-d",strtotime($fecha));
 //consultar la cantidad de estudios que estan agendados para la fecha especificada
 $sqlagenda = mysql_query("SELECT MAX(l.id_estadoinforme) AS id_estadoinforme, l.hora, l.id_informe, l.fecha, i.id_paciente, i.ubicacion,k.reconstruccion,
-CONCAT(p.nom1,' ', p.nom2,' ', p.ape1,' ', p.ape2) AS nombre,i.idsede,i.idservicio, es.nom_estudio, pr.desc_prioridad, t.desc_tecnica, tp.desctipo_paciente FROM r_log_informe l
+CONCAT(p.nom1,' ', p.nom2,' ', p.ape1,' ', p.ape2) AS nombre,i.idsede,i.idservicio, es.nom_estudio, pr.desc_prioridad, t.desc_tecnica, tp.desctipo_paciente,i.id_tecnica FROM r_log_informe l
 INNER JOIN r_informe_header i ON i.id_informe = l.id_informe
 INNER JOIN r_paciente p ON p.id_paciente = i.id_paciente
 INNER JOIN r_estudio es ON es.idestudio = i.idestudio
@@ -92,10 +92,25 @@ while($reg =  mysql_fetch_array($sqlagenda))
             <?php
 			if ($count>=1)
 			{
+
+					       if ($reg['id_tecnica']!=2){
+								?>
+							<td align="left"><a
+                            href="ingcontraste.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
+                            target="pop-up"
+                            onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1920, height=1080, top=85, left=140'); return false;"><img
+                                src="../../../../images/medical.png" width="15" height="15" title="Ingresar medio de contraste"
+                                alt="Ingresar medio de contraste"/></a>
+                            </td>
+								<?php
+									}
+
 				while($regAdjunto = mysql_fetch_array($sqlAdjunto))
 				{
+
+
 				?>
-				<a href="../ViewAttached.php?Attached=<?php echo base64_encode($regAdjunto['id_adjunto'])?> " target="pop-up" onClick=		"window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1920, height=1080, top=85, left=140'); return false;"><img src="../../../../images/pdf grande.png" width="15" height="15" title="Ver adjunto" alt="Ver adjunto" /></a>
+				<a href="../ViewAttached.php?Attached=<?php echo base64_encode($regAdjunto['id_adjunto'])?> " target="pop-up" onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=520, height=580, top=85, left=140'); return false;"><img src="../../../../images/pdf grande.png" width="15" height="15" title="Ver adjunto" alt="Ver adjunto" /></a>
 				<?php
 				}
 			}
@@ -125,7 +140,7 @@ while($reg =  mysql_fetch_array($sqlagenda))
 			<td>
             <?php
             	//validar los estudios con radiaciones ionizantes.
-				if ($servicio==4 and $reg[""] || $servicio==5 || $servicio==20 || $servicio==1 || $servicio==10 || $servicio==2)
+				if ($servicio==4  || $servicio==5 || $servicio==20 || $servicio==1 || $servicio==10 || $servicio==2)
 				{
 					echo '<a href="estadistica.php?usuario='.base64_encode($usuario).'&idInforme='.base64_encode($idInforme).'&sede='.base64_encode($sede).'&servicio='.base64_encode($servicio).'" target="popup" onClick="window.open(this.href, this.target, width=800,height=800); return false;"><img src="../../../../images/apply.png" width="15" height="15" title="Realizar Estudio" alt="Realizar Estudio" />';
 
@@ -171,10 +186,26 @@ while($reg =  mysql_fetch_array($sqlagenda))
             <?php
 			if ($count>=1)
 			{
+				 if ($reg['id_tecnica']!=2){
+								?>
+							<td align="left"><a
+                            href="ingcontraste.php?idInforme=<?php echo base64_encode($reg['id_informe']) ?>&usuario=<?php echo base64_encode($_GET['usuario']) ?>"
+                            target="pop-up"
+                            onClick="window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=520, height=580, top=100, left=100'); return false;"><img
+                                src="../../../../images/medical.png" width="15" height="15" title="Ingresar mdeio de contraste"
+                                alt="Ingresar medio de contraste"/></a>
+                             </td>
+								<?php
+									}
+
+
+
 				while($regAdjunto = mysql_fetch_array($sqlAdjunto))
 				{
 				?>
+				<td>
 				<a href="../ViewAttached.php?Attached=<?php echo base64_encode($regAdjunto['id_adjunto'])?> " target="pop-up" onClick=		"window.open(this.href, this.target, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1920, height=1080, top=85, left=140'); return false;"><img src="../../../../images/pdf grande.png" width="15" height="15" title="Ver adjunto" alt="Ver adjunto" /></a>
+				</td>
 				<?php
 				}
 			}

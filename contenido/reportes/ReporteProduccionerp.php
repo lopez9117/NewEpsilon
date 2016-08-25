@@ -166,6 +166,6 @@ if($contSinLectura>=1) {
 		echo '</tr>';
 	}
 }
-mysql_close($cn);
+		mysql_close($cn);
 ?>
 </table>

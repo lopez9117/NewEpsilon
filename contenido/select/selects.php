@@ -29,5 +29,9 @@ $listadoCargo = mysql_query("SELECT * FROM tipo_cargo", $cn);
 //obtener listado de departamentos de colombia
 $listadoDpto = mysql_query("SELECT * FROM r_departamento ORDER BY nombre_dpto ASC", $cn);
 //obtener listado de municipios
-$listadoMun = mysql_query("SELECT * FROM r_municipio ORDER BY nombre_mun ASC");
+$listadoMun = mysql_query("SELECT * FROM r_municipio ORDER BY nombre_mun ASC", $cn);
+//listado de medios de contraste
+$listadomediocontraste = mysql_query("SELECT * FROM r_contraste ORDER BY desc_contraste ASC", $cn);
+//listado de vias de administracion
+$listadoviaadministracion = mysql_query("SELECT * FROM r_via_administracion ORDER BY desc_via_administracion ORDER BY ASC", $cn);
 ?>

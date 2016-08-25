@@ -15,13 +15,14 @@ $fechacons = date("Y-m-d",strtotime($fecha));
 $fechacons2 = date("Y-m-d",strtotime($hasta));
 //obtener la cantidad de estudios
 $sqlagenda = mysql_query("SELECT STRAIGHT_JOIN DISTINCT(l.id_informe),l.fecha,l.hora, i.id_paciente, CONCAT(p.nom1,' ',p.nom2,' ',p.ape1,' ',p.ape2) AS nombre, est.nom_estudio, pri.desc_prioridad, tec.desc_tecnica,i.ubicacion,
-tp.desctipo_paciente FROM r_informe_header i
+tp.desctipo_paciente,er.desc_erp FROM r_informe_header i
 INNER JOIN r_log_informe l ON l.id_informe=i.id_informe
 INNER JOIN r_paciente p ON p.id_paciente = i.id_paciente
 INNER JOIN r_estudio est ON est.idestudio = i.idestudio
 INNER JOIN r_prioridad pri ON pri.id_prioridad = i.id_prioridad
 INNER JOIN r_tecnica tec ON tec.id_tecnica = i.id_tecnica
 INNER JOIN r_tipo_paciente tp ON tp.idtipo_paciente = i.idtipo_paciente
+INNER JOIN r_erp er ON er.erp = i.erp
 WHERE l.id_estadoinforme = '$estado' AND l.fecha BETWEEN '$fechacons' AND '$fechacons2' AND i.idservicio = '$servicio' AND i.idsede = '$sede' AND i.id_estadoinforme='$estado'  ORDER BY fecha, hora ASC;", $cn);
 
 $sqlSede = mysql_query("SELECT descsede FROM sede WHERE idsede='$sede'", $cn);
@@ -54,7 +55,8 @@ $('#consulta').dataTable( { //CONVERTIMOS NUESTRO LISTADO DE LA FORMA DEL JQUERY
     <th align="left" width="20%">Estudio</th>
     <th align="left" width="10%">Tecnica</th>
     <th align="left" width="10%">Tipo Paciente</th>
-	<th align="left" width="10%">Ubicación</th>
+    <th align="left" width="10%">ERP</th>
+    	<th align="left" width="10%">Ubicación</th>
     <th align="left" width="10%">Prioridad</th>
     <th align="left" width="20%">Funcionario</th>
     <th align="center" width="15%">Fecha / Hora</th>
@@ -70,9 +72,11 @@ while($reg =  mysql_fetch_array($sqlagenda))
 	echo '<td align="left">'.ucwords(strtolower($reg['nombre'])).'</td>';
 	echo '<td align="left">'.ucwords(strtolower($reg['nom_estudio'])).'</td>';
 	echo '<td align="left">'.ucwords(strtolower($reg['desc_tecnica'])).'</td>';
-	echo '<td align="left">'.ucwords(strtolower($reg['desctipo_paciente'])).'</td>';
+    echo '<td align="left">'.ucwords(strtolower($reg['desctipo_paciente'])).'</td>';
+	echo '<td align="left">'.ucwords(strtolower($reg['desc_erp'])).'</td>';
 	echo '<td align="left">'.ucwords(strtolower($reg['ubicacion'])).'</td>';
 	echo '<td align="left">'.ucwords(strtolower($reg['desc_prioridad'])).'</td>';
+	
 	if($estado==4 || $estado==2)
 	{
 		//obtener datos del especialista que tiene estudios pendientes por aprobacion

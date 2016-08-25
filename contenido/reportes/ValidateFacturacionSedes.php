@@ -20,6 +20,9 @@ if ($erp == 46) {
 }elseif($erp==58){
         $erpb='(58,37)';
 
+}elseif($erp==58){
+        $erpb='(58,37)';
+
 } else {
     $erpb = '(' . $erp . ')';
 } ?>

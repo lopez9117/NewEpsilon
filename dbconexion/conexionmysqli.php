@@ -2,7 +2,7 @@
 //funcion para invocar conexion a la BD
 function Conectarse(){
 //variables que contienen los datos necesarios para la conexion
-    $servidor = '10.8.8.30';
+    $servidor = '190.0.27.100';
     $basededatos = 'epsilon';
     $usuario = 'root';
     $clave = 'root';
